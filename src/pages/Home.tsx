@@ -1,11 +1,15 @@
-import React from 'react';
+
+import AddButton from '../components/AddButton';
+import AllTimezones from '../components/AllTimezones';
 import Topbar from '../components/Topbar';
 
 const Home = () => {
   return (
     <div>
       <Topbar />
-      Home
+      <AllTimezones />
+      <AddButton />
+      
     </div>
   );
 };
