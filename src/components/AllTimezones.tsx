@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Collapse from '@mui/material/Collapse';
 import TablePagination from '@mui/material/TablePagination';
+import AddTimezoneDialog from './AddTimezoneDialog';
 
 const fruits: string[] = [
   'Apple',
@@ -41,6 +42,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 const TimezoneCard = () => {
   const [expanded, setExpanded] = useState(false);
+  const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -62,7 +64,7 @@ const TimezoneCard = () => {
       </CardContent>
 
       <CardActions disableSpacing>
-        <IconButton aria-label="edit">
+        <IconButton aria-label="edit" onClick={()=> setEditDialogOpen(true)}>
           <EditIcon />
         </IconButton>
         <IconButton aria-label="delete">
@@ -87,6 +89,7 @@ const TimezoneCard = () => {
           </Typography>
         </CardContent>
       </Collapse>
+      <AddTimezoneDialog title='Edit Timezone' open={editDialogOpen} onCancel={()=> setEditDialogOpen(false)} onAdd={()=>{}}/>
     </Card>
   );
 };
@@ -119,3 +122,10 @@ const AllTimezones = () => {
 };
 
 export default AllTimezones;
+
+export type TimeZoneData= {
+  name: string,
+  city: string,
+  hourdiff: number,
+  mindiff: number
+}

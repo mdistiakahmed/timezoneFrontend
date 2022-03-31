@@ -58,6 +58,7 @@ const AddUserDialog = ({
           fullWidth
           variant="standard"
           value={currentRole}
+          onChange={(e)=> setCurrentRole(e.target.value)}
         >
           {Object.keys(UserRoles)
             .filter((key) => isNaN(Number(key)))
