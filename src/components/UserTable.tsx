@@ -14,6 +14,7 @@ import { UserData, UserRoles } from '../pages/User';
 import { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import AddUserDialog from './AddUserDialog';
+import ConfirmationModal from './common/ConfirmationModal';
 
 function createData(email: string, isAdmin: boolean) {
   return { email, isAdmin };
@@ -44,6 +45,8 @@ const StyledTableCell = styled(TableCell)(() => ({
 
 const UserTableRow = ({ email, role }: UserData): JSX.Element => {
   const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
+  const [deleteConfirmationOpen, setDeleteConfirmationOpen] =
+    useState<boolean>(false);
   return (
     <TableRow
       key={email}
@@ -66,7 +69,10 @@ const UserTableRow = ({ email, role }: UserData): JSX.Element => {
             </IconButton>
           </Grid>
           <Grid item>
-            <IconButton aria-label="delete">
+            <IconButton
+              onClick={() => setDeleteConfirmationOpen(true)}
+              aria-label="delete"
+            >
               <DeleteForeverIcon sx={{ fill: 'red' }} />
             </IconButton>
           </Grid>
@@ -79,6 +85,21 @@ const UserTableRow = ({ email, role }: UserData): JSX.Element => {
         onAdd={() => {}}
         userData={{ email: email, role: role }}
         isEdit={true}
+      />
+
+      <ConfirmationModal
+        open={deleteConfirmationOpen}
+        title="User Delete confirmation"
+        description="Sure want to delete this user? This will delete the user and all the timezones enterd by this user"
+        onCancel={() => setDeleteConfirmationOpen(false)}
+        onConfirm={() => {}}
+        alertSeverity="error"
+        children={
+          <div>
+            <h3>Email: {email}</h3>
+            <h3>Role: {role}</h3>
+          </div>
+        }
       />
     </TableRow>
   );

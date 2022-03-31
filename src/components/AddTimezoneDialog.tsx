@@ -12,9 +12,8 @@ const AddTimezoneDialog = ({
   onCancel,
   onAdd,
   title,
-  timezoneData
+  timezoneData,
 }: DialogProps): JSX.Element => {
-
   const [name, setName] = useState<string>('');
   const [city, setCity] = useState<string>('');
   const [hourDiff, setHourDiff] = useState<number>(0);
@@ -26,7 +25,6 @@ const AddTimezoneDialog = ({
     setHourDiff(timezoneData ? timezoneData.hourdiff : 0);
     setMinDiff(timezoneData ? timezoneData.mindiff : 0);
   }, [timezoneData]);
-
 
   return (
     <div>
@@ -42,7 +40,7 @@ const AddTimezoneDialog = ({
             fullWidth
             variant="standard"
             value={name}
-            onChange={(e)=> setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
           />
 
           <TextField
@@ -53,7 +51,7 @@ const AddTimezoneDialog = ({
             fullWidth
             variant="standard"
             value={city}
-            onChange={(e)=> setCity(e.target.value)}
+            onChange={(e) => setCity(e.target.value)}
           />
 
           <TextField
@@ -64,7 +62,7 @@ const AddTimezoneDialog = ({
             fullWidth
             variant="standard"
             value={hourDiff}
-            onChange={(e)=> setHourDiff(parseInt(e.target.value))}
+            onChange={(e) => setHourDiff(parseInt(e.target.value))}
           />
 
           <TextField
@@ -75,7 +73,7 @@ const AddTimezoneDialog = ({
             fullWidth
             variant="standard"
             value={minDiff}
-            onChange={(e)=> setMinDiff(parseInt(e.target.value))}
+            onChange={(e) => setMinDiff(parseInt(e.target.value))}
           />
         </DialogContent>
         <DialogActions>
@@ -94,5 +92,5 @@ type DialogProps = {
   onCancel: () => void;
   onAdd: () => void;
   title: string;
-  timezoneData?: TimeZoneData
+  timezoneData?: TimeZoneData;
 };
