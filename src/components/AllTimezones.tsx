@@ -13,6 +13,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Collapse from '@mui/material/Collapse';
+import TablePagination from '@mui/material/TablePagination';
 
 const fruits: string[] = [
   'Apple',
@@ -22,7 +23,6 @@ const fruits: string[] = [
   'ahmed',
   'nishat',
 ];
-
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -82,8 +82,8 @@ const TimezoneCard = () => {
         <CardContent>
           <Typography paragraph>Method:</Typography>
           <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-            aside for 10 minutes.
+            Heat 1/2 cup of the broth in a pot until simmering, add saffron and
+            set aside for 10 minutes.
           </Typography>
         </CardContent>
       </Collapse>
@@ -104,6 +104,16 @@ const AllTimezones = () => {
           );
         })}
       </Grid>
+      <TablePagination
+        component="div"
+        rowsPerPageOptions={[]}
+        count={100}
+        rowsPerPage={5}
+        page={1}
+        onPageChange={() => {
+          console.log('page has been changed....');
+        }}
+      />
     </Container>
   );
 };
