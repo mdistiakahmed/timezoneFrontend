@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import AddButton from '../components/AddButton';
 import AddUserDialog from '../components/AddUserDialog';
+import Loader from '../components/common/Loader';
 import Topbar from '../components/Topbar';
 import UserTable from '../components/UserTable';
 
@@ -9,6 +10,7 @@ const User = () => {
   return (
     <div>
       <Topbar />
+      <Loader isLoading={true} />
       <UserTable />
       <AddButton onClick={() => setModalOpen(true)} />
       <AddUserDialog

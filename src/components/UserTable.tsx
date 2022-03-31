@@ -15,6 +15,7 @@ import { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import AddUserDialog from './AddUserDialog';
 import ConfirmationModal from './common/ConfirmationModal';
+import Loader from './common/Loader';
 
 function createData(email: string, isAdmin: boolean) {
   return { email, isAdmin };
