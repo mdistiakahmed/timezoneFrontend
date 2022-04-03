@@ -10,11 +10,11 @@ import { UserRoles } from '../../../constants/GeneralConstants';
 const User = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [showSpinner, setShowSpinner] = useState<boolean>(true);
-  
+
   return (
     <div>
       <Topbar />
-      
+
       <UserTable />
       <AddButton onClick={() => setModalOpen(true)} />
       <AddUserDialog
@@ -24,8 +24,13 @@ const User = () => {
         onAdd={() => {}}
         isEdit={false}
       />
-      <Loader isLoading={showSpinner} setIsLoading={(e:boolean)=>{setShowSpinner(e)}}/>
-      <Toast message='This is a toast'/>
+      <Loader
+        isLoading={showSpinner}
+        setIsLoading={(e: boolean) => {
+          setShowSpinner(e);
+        }}
+      />
+      <Toast message="This is a toast" />
     </div>
   );
 };
@@ -37,4 +42,3 @@ export type UserData = {
   password?: string;
   role: UserRoles;
 };
-
