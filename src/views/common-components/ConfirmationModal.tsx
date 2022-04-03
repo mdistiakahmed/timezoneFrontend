@@ -5,13 +5,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export enum AlertSeverity {
-  ERROR = 'info',
-  WARNING = 'warning',
-  INFO = 'info',
-  SUCCESS = 'success',
-}
-
 const ConfirmationModal = ({
   title,
   description,

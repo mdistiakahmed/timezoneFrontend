@@ -6,7 +6,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
-import { UserData, UserRoles } from '../pages/User';
+import { UserRoles } from '../../../constants/GeneralConstants';
+import { UserData } from './User';
 
 const AddUserDialog = ({
   open,

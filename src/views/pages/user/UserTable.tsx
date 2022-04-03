@@ -10,12 +10,12 @@ import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { UserData, UserRoles } from '../pages/User';
+import { UserData } from './User';
 import { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import AddUserDialog from './AddUserDialog';
-import ConfirmationModal from './common/ConfirmationModal';
-import Loader from './common/Loader';
+import ConfirmationModal from '../../common-components/ConfirmationModal';
+import { UserRoles } from '../../../constants/GeneralConstants';
 
 function createData(email: string, isAdmin: boolean) {
   return { email, isAdmin };

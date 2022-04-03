@@ -15,7 +15,7 @@ import { styled } from '@mui/material/styles';
 import Collapse from '@mui/material/Collapse';
 import TablePagination from '@mui/material/TablePagination';
 import AddTimezoneDialog from './AddTimezoneDialog';
-import ConfirmationModal from './common/ConfirmationModal';
+import ConfirmationModal from '../../common-components/ConfirmationModal';
 
 const fruits: string[] = [
   'Apple',
