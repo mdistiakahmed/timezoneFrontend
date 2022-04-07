@@ -1,7 +1,7 @@
 import { AuthorizationData, SignupFormErrors } from "../views/pages/signup/Signup";
 
 
-export default class AuthorityService {
+export default class ValidationService {
     static signup(data: AuthorizationData) {
         console.log(data);
     }
@@ -9,13 +9,13 @@ export default class AuthorityService {
     static signupFormValidate(name:string, value:string,errors:SignupFormErrors, setErrors: any,password: string) {
         switch (name) {
             case 'email':
-                AuthorityService.emailValidation(value, errors, setErrors);
+                ValidationService.emailValidation(value, errors, setErrors);
             break;
             case 'password':
-                AuthorityService.passwordValidation(value,errors, setErrors);
+                ValidationService.passwordValidation(value,errors, setErrors);
             break;
             case 'confirmpassword':
-                AuthorityService.confirmPasswordValidation(value,password,errors, setErrors);
+                ValidationService.confirmPasswordValidation(value,password,errors, setErrors);
                 break;
             
             default:

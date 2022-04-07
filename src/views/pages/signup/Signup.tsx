@@ -6,36 +6,50 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useState } from 'react';
-import AuthorityService from '../../../services/AuthorityService';
+import { useEffect, useState } from 'react';
+import ValidationService from '../../../services/ValidationService';
 import Alert from '@mui/material/Alert';
 import { AlertSeverity } from '../../../constants/GeneralConstants';
+import { AuthService } from '../../../services/AuthService';
+import { useNavigate } from 'react-router-dom';
+import Loader from '../../common-components/Loader';
 
 const Signup = () => {
-  const [submitDisable, setSubmitDisable] = useState(false);
   // store password to match with confirm password
   const [password, setPassword] = useState('');
   //Errors
   const [errors, setErrors] = useState<SignupFormErrors>({});
   // alert
   const [showAlert, setShowAlert] = useState<boolean>(false);
+  // loader
+  const [showLoader, setShowLoader] = useState<boolean>(false);
 
- 
+  const navigate = useNavigate();
+  const authService = new AuthService(navigate);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSubmitDisable(true);
-    const inputdata = new FormData(event.currentTarget);
-    const hasError = AuthorityService.singUpFromSubmitValidate(inputdata,errors);
-
-    if (hasError) {
-      setShowAlert(true);
-    } else {
-      console.log('No error');
-      setShowAlert(false);
-    }
-    setSubmitDisable(false);
+      const inputdata = new FormData(event.currentTarget);
+      const hasError = ValidationService.singUpFromSubmitValidate(inputdata,errors);
+      if (hasError) {
+        setShowAlert(true);
+      } else {
+        setShowAlert(false);
+        setShowLoader(true);
+        const email = '' + inputdata.get('email')?.toString();
+        const password = '' + inputdata.get('password')?.toString();
+        await authService.createUser({email: email, password: password});
+        setShowLoader(false);
+      }
   };
+
+  useEffect(() => {
+    // clear memory during exist form this page (component unmount)
+    return () => {
+      setShowLoader(false);
+      setShowAlert(false);
+    };
+}, []);
 
   const handleChange = (event: any) => {
     const name = event.target.name;
@@ -43,12 +57,19 @@ const Signup = () => {
     if (name === 'password') {
       setPassword(val);
     }
-    AuthorityService.signupFormValidate(name, val, errors, setErrors, password);
+    ValidationService.signupFormValidate(
+      name,
+      val,
+      errors,
+      setErrors,
+      password,
+    );
   };
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      <Loader isLoading={showLoader} />
 
       <Box
         sx={{
@@ -131,7 +152,6 @@ const Signup = () => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            disabled={submitDisable}
           >
             Sign Up
           </Button>
@@ -160,4 +180,3 @@ export type SignupFormErrors = {
   passwordError?: string;
   confirmPasswordError?: string;
 };
-

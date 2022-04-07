@@ -12,9 +12,6 @@ const divStyles: CSS.Properties = {
 };
 
 const Loader = ({ isLoading, setIsLoading }: LoaderProps) => {
-  setTimeout(() => {
-    setIsLoading(false);
-  }, 5000);
 
   if (!isLoading) {
     return null;
@@ -33,5 +30,5 @@ export default Loader;
 
 type LoaderProps = {
   isLoading: boolean;
-  setIsLoading: (e: boolean) => void;
+  setIsLoading?: (e: boolean) => void;
 };

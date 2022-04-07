@@ -1,10 +1,13 @@
 export class ApiEndpoints {
-    // static BASE_URL:string = 'http://18.141.57.99:3200/api/v1';
-    static BASE_URL: string = 'http://localhost:5000/api/v1';
+    static BASE_URL: string = 'http://localhost:8080/api';
+
+    static test = {
+        testGet: `${ApiEndpoints.BASE_URL}/test`,
+    };
 
     static user = {
         signIn: `${ApiEndpoints.BASE_URL}/user/signin`,
-        signUp: `${ApiEndpoints.BASE_URL}/user/signup`,
+        createUser: `${ApiEndpoints.BASE_URL}/users`,
         getUsers: `${ApiEndpoints.BASE_URL}/user/users`,
     };
 
