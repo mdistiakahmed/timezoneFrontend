@@ -1,10 +1,7 @@
-import { AuthorizationData, SignupFormErrors } from "../views/pages/signup/Signup";
+import { SignupFormErrors } from "../views/pages/signup/Signup";
 
 
 export default class ValidationService {
-    static signup(data: AuthorizationData) {
-        console.log(data);
-    }
 
     static signupFormValidate(name:string, value:string,errors:SignupFormErrors, setErrors: any,password: string) {
         switch (name) {

@@ -21,6 +21,7 @@ const Signup = () => {
   const [errors, setErrors] = useState<SignupFormErrors>({});
   // alert
   const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [alertMessage, setAlertMessage] = useState<string>('');
   // loader
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
@@ -33,12 +34,20 @@ const Signup = () => {
       const hasError = ValidationService.singUpFromSubmitValidate(inputdata,errors);
       if (hasError) {
         setShowAlert(true);
+        setAlertMessage('Provide valid information!');
       } else {
         setShowAlert(false);
         setShowLoader(true);
         const email = '' + inputdata.get('email')?.toString();
         const password = '' + inputdata.get('password')?.toString();
-        await authService.createUser({email: email, password: password});
+        await authService.createUser({firstname:'a',lastname:'b', username: email, password: password,sysadmin: false})
+          .then(res => {
+            navigate('/signin')
+          })
+          .catch(err => {
+            setShowAlert(true);
+            setAlertMessage('Error: ' + err.status + ' ' + err.message);
+          });
         setShowLoader(false);
       }
   };
@@ -84,7 +93,7 @@ const Signup = () => {
         </Typography>
         {showAlert && (
           <Alert severity={AlertSeverity.ERROR}>
-            Provide valid information!
+            {alertMessage}
           </Alert>
         )}
 

@@ -2,34 +2,41 @@ import axios, { Method } from 'axios';
 import HttpErrorResponseModel from './HttpErrorResponseModel';
 
 const RequestMethod = {
-    Get: 'GET',
-    Post: 'POST',
-    Put: 'PUT',
-    Delete: 'DELETE',
-    Options: 'OPTIONS',
-    Head: 'HEAD',
-    Patch: 'PATCH',
+  Get: 'GET',
+  Post: 'POST',
+  Put: 'PUT',
+  Delete: 'DELETE',
+  Options: 'OPTIONS',
+  Head: 'HEAD',
+  Patch: 'PATCH',
 };
 
 export default class HttpUtility {
   static async get(endpoint: string, data: any) {
     const config = data ? { data } : undefined;
-    return HttpUtility._request({
-      url: endpoint,
-      method: RequestMethod.Get as Method,
-    },config);
+    return HttpUtility._request(
+      {
+        url: endpoint,
+        method: RequestMethod.Get as Method,
+      },
+      config,
+    );
   }
 
   static async post(endpoint: string, data: any) {
     const config = data ? { data } : undefined;
-    return HttpUtility._request({
-      url: endpoint,
-      method: RequestMethod.Post as Method,
-    },config);
+    return HttpUtility._request(
+      {
+        url: endpoint,
+        method: RequestMethod.Post as Method,
+      },
+      config,
+    );
   }
 
   static async _request(restRequest: RestRequest, config: any) {
     const axiosRequestConfig = {
+      data: config.data,
       method: restRequest.method,
       url: restRequest.url,
       headers: {
@@ -46,17 +53,30 @@ export default class HttpUtility {
           resolve(result);
         })
         .catch((err) => {
-          if (!err.response) {
-            // network error
-            const errObj = HttpUtility._fillInErrorWithDefaults({
-              status: 0,
-              message: err.message,
-            });
-            reject(errObj);
+          if (err.response) {
+            console.log('Hello friends.....');
+            console.log(err.response);
+            reject(
+              HttpUtility._fillInErrorWithDefaults({
+                status: err.response.status,
+                message: err.response.data ? err.response.data.msg: '',
+                code: err.response.error ? err.response.error.code : '',
+              }),
+            );
+          } else if (err.request) {
+            reject(
+              HttpUtility._fillInErrorWithDefaults({
+                status: err.request.status,
+                message:  err.request.statusText,
+              }),
+            );
           } else {
-            //TODO: put more else if
-            const errObj = HttpUtility._fillInErrorWithDefaults({});
-            reject(errObj);
+            reject(
+              HttpUtility._fillInErrorWithDefaults({
+                status: 0,
+                message: err.message,
+              }),
+            );
           }
         });
     });
