@@ -9,7 +9,7 @@ import { UserRoles } from '../../../constants/GeneralConstants';
 
 const User = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [showSpinner, setShowSpinner] = useState<boolean>(true);
+  const [showSpinner, setShowSpinner] = useState<boolean>(false);
 
   return (
     <div>

@@ -11,11 +11,14 @@ import { AlertSeverity } from '../../../constants/GeneralConstants';
 import { useState } from 'react';
 import { AuthService } from '../../../services/AuthService';
 import { useNavigate } from 'react-router-dom';
+import { useToken } from '../../../hooks/useToken';
 
 const Signin = () => {
   // alert
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
+  // set token upon success
+  const { setToken } = useToken();
 
   const navigate = useNavigate();
   const authService = new AuthService(navigate);
@@ -31,7 +34,11 @@ const Signin = () => {
     } else {
       authService
         .signIn({ username: email, password: password })
-        .then((res) => console.log(res))
+        .then(async (res) => {
+          console.log(res.token);
+          await setToken(res.token);
+          navigate('/');
+        })
         .catch((err) => {
           setShowAlert(true);
           setAlertMessage('Error: ' + err.status + ' ' + err.message);

@@ -11,10 +11,17 @@ import { useState } from 'react';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Avatar from '@mui/material/Avatar';
+import { useToken } from '../../hooks/useToken';
+import { useNavigate } from 'react-router-dom';
 
 const Topbar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  // for navigate to signin page upon logout
+  const navigate = useNavigate();
+
+  // set token upon success
+  const { removeToken } = useToken();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -29,6 +36,12 @@ const Topbar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = async () => {
+    console.log('logout.....');
+    await removeToken();
+    navigate('/signin');
   };
 
   return (
@@ -150,7 +163,7 @@ const Topbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem onClick={() => {}}>
+              <MenuItem onClick={handleLogout}>
                 <Typography textAlign="center">Logout</Typography>
               </MenuItem>
             </Menu>
