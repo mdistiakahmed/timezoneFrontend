@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const ServerDownPage = () => {
-  return (
-    <div>ServerDownPage</div>
-  )
-}
+  return <div>ServerDownPage</div>;
+};
 
-export default ServerDownPage
+export default ServerDownPage;

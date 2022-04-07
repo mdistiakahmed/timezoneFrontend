@@ -12,7 +12,6 @@ const divStyles: CSS.Properties = {
 };
 
 const Loader = ({ isLoading, setIsLoading }: LoaderProps) => {
-
   if (!isLoading) {
     return null;
   }

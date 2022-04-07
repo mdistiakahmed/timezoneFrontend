@@ -30,26 +30,36 @@ const Signup = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-      const inputdata = new FormData(event.currentTarget);
-      const hasError = ValidationService.singUpFromSubmitValidate(inputdata,errors);
-      if (hasError) {
-        setShowAlert(true);
-        setAlertMessage('Provide valid information!');
-      } else {
-        setShowAlert(false);
-        setShowLoader(true);
-        const email = '' + inputdata.get('email')?.toString();
-        const password = '' + inputdata.get('password')?.toString();
-        await authService.createUser({firstname:'a',lastname:'b', username: email, password: password,sysadmin: false})
-          .then(res => {
-            navigate('/signin')
-          })
-          .catch(err => {
-            setShowAlert(true);
-            setAlertMessage('Error: ' + err.status + ' ' + err.message);
-          });
-        setShowLoader(false);
-      }
+    const inputdata = new FormData(event.currentTarget);
+    const hasError = ValidationService.singUpFromSubmitValidate(
+      inputdata,
+      errors,
+    );
+    if (hasError) {
+      setShowAlert(true);
+      setAlertMessage('Provide valid information!');
+    } else {
+      setShowAlert(false);
+      setShowLoader(true);
+      const email = '' + inputdata.get('email')?.toString();
+      const password = '' + inputdata.get('password')?.toString();
+      await authService
+        .createUser({
+          firstname: 'a',
+          lastname: 'b',
+          username: email,
+          password: password,
+          sysadmin: false,
+        })
+        .then((res) => {
+          navigate('/signin');
+        })
+        .catch((err) => {
+          setShowAlert(true);
+          setAlertMessage('Error: ' + err.status + ' ' + err.message);
+        });
+      setShowLoader(false);
+    }
   };
 
   useEffect(() => {
@@ -58,7 +68,7 @@ const Signup = () => {
       setShowLoader(false);
       setShowAlert(false);
     };
-}, []);
+  }, []);
 
   const handleChange = (event: any) => {
     const name = event.target.name;
@@ -92,9 +102,7 @@ const Signup = () => {
           Sign up
         </Typography>
         {showAlert && (
-          <Alert severity={AlertSeverity.ERROR}>
-            {alertMessage}
-          </Alert>
+          <Alert severity={AlertSeverity.ERROR}>{alertMessage}</Alert>
         )}
 
         <Box
