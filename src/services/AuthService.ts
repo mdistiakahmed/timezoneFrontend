@@ -17,9 +17,20 @@ export class AuthService {
     });
   }
 
-  async createUser(userDto: UserDTO): Promise<any> {
+  async signUp(userDto: UserDTO): Promise<any> {
     return new Promise(async (resolve, reject) => {
-      await HttpUtility.post(ApiEndpoints.user.createUser, userDto)
+      await HttpUtility.post(ApiEndpoints.user.signUp, userDto)
+        .then((res) => resolve(res))
+        .catch((err) => {
+          ErrorHandlerService.handleError(err, this.navigate);
+          return reject(err);
+        });
+    });
+  }
+
+  async signIn(userDto: UserDTO): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      await HttpUtility.post(ApiEndpoints.user.signIn, userDto)
         .then((res) => resolve(res))
         .catch((err) => {
           ErrorHandlerService.handleError(err, this.navigate);

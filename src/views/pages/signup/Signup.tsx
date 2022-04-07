@@ -43,8 +43,9 @@ const Signup = () => {
       setShowLoader(true);
       const email = '' + inputdata.get('email')?.toString();
       const password = '' + inputdata.get('password')?.toString();
+      //TODO: first name, last name
       await authService
-        .createUser({
+        .signUp({
           firstname: 'a',
           lastname: 'b',
           username: email,

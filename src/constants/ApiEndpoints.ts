@@ -6,8 +6,8 @@ export class ApiEndpoints {
     };
 
     static user = {
-        signIn: `${ApiEndpoints.BASE_URL}/user/signin`,
-        createUser: `${ApiEndpoints.BASE_URL}/users`,
+        signIn: `${ApiEndpoints.BASE_URL}/token`,
+        signUp: `${ApiEndpoints.BASE_URL}/users`,
         getUsers: `${ApiEndpoints.BASE_URL}/user/users`,
     };
 

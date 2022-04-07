@@ -6,8 +6,39 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Alert from '@mui/material/Alert';
+import { AlertSeverity } from '../../../constants/GeneralConstants';
+import { useState } from 'react';
+import { AuthService } from '../../../services/AuthService';
+import { useNavigate } from 'react-router-dom';
 
 const Signin = () => {
+  // alert
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [alertMessage, setAlertMessage] = useState<string>('');
+
+  const navigate = useNavigate();
+  const authService = new AuthService(navigate);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const inputdata = new FormData(event.currentTarget);
+    const email = '' + inputdata.get('email')?.toString();
+    const password = '' + inputdata.get('password')?.toString();
+    if (email.length === 0 || password.length === 0) {
+      setShowAlert(true);
+      setAlertMessage('Username or Password can not be empty');
+    } else {
+      authService
+        .signIn({ username: email, password: password })
+        .then((res) => console.log(res))
+        .catch((err) => {
+          setShowAlert(true);
+          setAlertMessage('Error: ' + err.status + ' ' + err.message);
+        });
+    }
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -23,7 +54,11 @@ const Signin = () => {
           Sign in
         </Typography>
 
-        <Box component="form" noValidate sx={{ mt: 1 }}>
+        {showAlert && (
+          <Alert severity={AlertSeverity.ERROR}>{alertMessage}</Alert>
+        )}
+
+        <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleSubmit}>
           <TextField
             margin="normal"
             required

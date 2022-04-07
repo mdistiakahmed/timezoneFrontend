@@ -3,5 +3,5 @@ export type UserDTO = {
     firstname?: string;
     lastname?: string;
     password: string;
-    sysadmin: boolean;
+    sysadmin?: boolean;
   };
