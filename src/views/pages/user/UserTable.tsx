@@ -16,23 +16,7 @@ import IconButton from '@mui/material/IconButton';
 import AddUserDialog from './AddUserDialog';
 import ConfirmationModal from '../../common-components/ConfirmationModal';
 import { UserRoles } from '../../../constants/GeneralConstants';
-
-function createData(email: string, isAdmin: boolean) {
-  return { email, isAdmin };
-}
-
-const rows = [
-  createData('istinishat@gmail.com', true),
-  createData('istiak@worksapp.com', true),
-  createData('ahmed@tekarsh.com', false),
-  createData('user@gmail.com', false),
-  createData('test@gmail.com', false),
-  createData('istinishat1@gmail.com', true),
-  createData('istiak2@worksapp.com', true),
-  createData('ahmed2@tekarsh.com', false),
-  createData('user2@gmail.com', false),
-  createData('test2@gmail.com', false),
-];
+import { UserDTO } from '../../../utils/DataModel';
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
@@ -106,7 +90,12 @@ const UserTableRow = ({ email, role }: UserData): JSX.Element => {
   );
 };
 
-const UserTable = () => {
+const UserTable = ({
+  data,
+  pageNumber,
+  pageSize,
+  totalElements,
+}: UserTableProps) => {
   return (
     <Paper sx={{ mx: '10px', mt: '5px' }}>
       <TableContainer>
@@ -120,11 +109,11 @@ const UserTable = () => {
           </TableHead>
 
           <TableBody>
-            {rows.map((row) => (
+            {data.map((row) => (
               <UserTableRow
-                key={row.email}
-                email={row.email}
-                role={row.isAdmin ? UserRoles.ADMIN : UserRoles.USER}
+                key={row.username}
+                email={row.username}
+                role={row.sysadmin ? UserRoles.ADMIN : UserRoles.USER}
               />
             ))}
           </TableBody>
@@ -133,15 +122,20 @@ const UserTable = () => {
       <TablePagination
         component="div"
         rowsPerPageOptions={[]}
-        count={100}
-        rowsPerPage={5}
-        page={1}
-        onPageChange={() => {
-          console.log('page has been changed....');
-        }}
+        count={totalElements}
+        rowsPerPage={pageSize}
+        page={pageNumber}
+        onPageChange={() => {}}
       />
     </Paper>
   );
 };
 
 export default UserTable;
+
+export type UserTableProps = {
+  data: UserDTO[];
+  pageNumber: number;
+  pageSize: number;
+  totalElements: number;
+};

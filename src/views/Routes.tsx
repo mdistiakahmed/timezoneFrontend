@@ -18,8 +18,6 @@ function AuthGuard({
 
 export default function RoutesHandler() {
   const isAuthenticated = useAuth();
-  console.log('================');
-  console.log(isAuthenticated);
   return (
     <Routes>
       <Route

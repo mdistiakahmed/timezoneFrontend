@@ -10,4 +10,11 @@ export enum AlertSeverity {
     SUCCESS = 'success',
 }
 
+export class PageLimit {
+    static USER_PAGE_LIMIT = 10;
+    static HOME_PAGE_LIMIT = 10;
+}
+
+
+
   

@@ -3,11 +3,11 @@ export const useToken = () => {
     return localStorage.getItem('AUTH_TOKEN') ?? '';
   };
 
-  const setToken = async (tokenToSave: string) => {
+  const setToken = (tokenToSave: string) => {
     localStorage.setItem('AUTH_TOKEN', tokenToSave ?? '');
   };
 
-  const removeToken = async () => {
+  const removeToken = () => {
     localStorage.removeItem('AUTH_TOKEN');
   };
 

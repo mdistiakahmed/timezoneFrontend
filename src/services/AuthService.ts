@@ -19,7 +19,7 @@ export class AuthService {
 
   async signUp(userDto: UserDTO): Promise<any> {
     return new Promise(async (resolve, reject) => {
-      await HttpUtility.post(ApiEndpoints.user.signUp, userDto)
+      await HttpUtility.post(ApiEndpoints.auth.signUp, userDto)
         .then((res) => resolve(res))
         .catch((err) => {
           ErrorHandlerService.handleError(err, this.navigate);
@@ -30,7 +30,7 @@ export class AuthService {
 
   async signIn(userDto: UserDTO): Promise<any> {
     return new Promise(async (resolve, reject) => {
-      await HttpUtility.post(ApiEndpoints.user.signIn, userDto)
+      await HttpUtility.post(ApiEndpoints.auth.signIn, userDto)
         .then((res) => resolve(res))
         .catch((err) => {
           ErrorHandlerService.handleError(err, this.navigate);

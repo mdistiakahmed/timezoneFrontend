@@ -11,6 +11,18 @@ const RequestMethod = {
   Patch: 'PATCH',
 };
 
+const NO_AUTH_URL = ["signin", "signup"];
+
+function isAuthTokenNeeded(requestUrl: string) {
+  for (let idx in NO_AUTH_URL) {
+    if (requestUrl.endsWith(NO_AUTH_URL[idx])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+
 export default class HttpUtility {
   static async get(endpoint: string, data: any) {
     const config = data ? { data } : undefined;
@@ -36,14 +48,15 @@ export default class HttpUtility {
 
   static async _request(restRequest: RestRequest, config: any) {
     const axiosRequestConfig = {
-      data: config.data,
       method: restRequest.method,
       url: restRequest.url,
       headers: {
         'Access-Control-Allow-Origin': '*',
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        ...(isAuthTokenNeeded(restRequest.url) && {Authorization: `Bearer ${localStorage.getItem('AUTH_TOKEN')}`}),
       },
+      ...(restRequest.method==='GET' ? {params: config.data} : {data: config.data})
     };
 
     return new Promise((resolve, reject) => {
@@ -54,8 +67,6 @@ export default class HttpUtility {
         })
         .catch((err) => {
           if (err.response) {
-            console.log('Hello friends.....');
-            console.log(err.response);
             reject(
               HttpUtility._fillInErrorWithDefaults({
                 status: err.response.status,
@@ -95,3 +106,5 @@ export type RestRequest = {
   url: string;
   method: Method;
 };
+
+

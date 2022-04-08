@@ -138,9 +138,7 @@ const AllTimezones = () => {
         count={100}
         rowsPerPage={5}
         page={1}
-        onPageChange={() => {
-          console.log('page has been changed....');
-        }}
+        onPageChange={() => {}}
       />
     </Container>
   );

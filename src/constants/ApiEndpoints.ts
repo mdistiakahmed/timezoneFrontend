@@ -5,16 +5,13 @@ export class ApiEndpoints {
         testGet: `${ApiEndpoints.BASE_URL}/test`,
     };
 
-    static user = {
-        signIn: `${ApiEndpoints.BASE_URL}/token`,
-        signUp: `${ApiEndpoints.BASE_URL}/users`,
-        getUsers: `${ApiEndpoints.BASE_URL}/user/users`,
+    static auth = {
+        signIn: `${ApiEndpoints.BASE_URL}/signin`,
+        signUp: `${ApiEndpoints.BASE_URL}/signup`,
     };
 
-    static service = {
-        baseEndpoint: `${ApiEndpoints.BASE_URL}/service`,
-        getDetails: `${ApiEndpoints.BASE_URL}/service/get-details`,
-        getFilteredServices: `${ApiEndpoints.BASE_URL}/service/filter`,
+    static user = {
+        getUsers: `${ApiEndpoints.BASE_URL}/users`,
     };
 
     static order = {

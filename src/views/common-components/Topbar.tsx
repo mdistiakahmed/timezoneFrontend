@@ -7,18 +7,21 @@ import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Avatar from '@mui/material/Avatar';
 import { useToken } from '../../hooks/useToken';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
 
 const Topbar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   // for navigate to signin page upon logout
   const navigate = useNavigate();
+
+  const { setTokenContext } = useContext(UserContext);
 
   // set token upon success
   const { removeToken } = useToken();
@@ -39,8 +42,8 @@ const Topbar = () => {
   };
 
   const handleLogout = async () => {
-    console.log('logout.....');
-    await removeToken();
+    removeToken();
+    setTokenContext(null);
     navigate('/signin');
   };
 

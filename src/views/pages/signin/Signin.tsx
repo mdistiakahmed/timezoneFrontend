@@ -8,10 +8,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Alert from '@mui/material/Alert';
 import { AlertSeverity } from '../../../constants/GeneralConstants';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { AuthService } from '../../../services/AuthService';
 import { useNavigate } from 'react-router-dom';
 import { useToken } from '../../../hooks/useToken';
+import { UserContext } from '../../../context/UserContext';
 
 const Signin = () => {
   // alert
@@ -19,6 +20,8 @@ const Signin = () => {
   const [alertMessage, setAlertMessage] = useState<string>('');
   // set token upon success
   const { setToken } = useToken();
+
+  const { setTokenContext } = useContext(UserContext);
 
   const navigate = useNavigate();
   const authService = new AuthService(navigate);
@@ -35,8 +38,8 @@ const Signin = () => {
       authService
         .signIn({ username: email, password: password })
         .then(async (res) => {
-          console.log(res.token);
-          await setToken(res.token);
+          setToken(res.token);
+          setTokenContext(res.token);
           navigate('/');
         })
         .catch((err) => {
