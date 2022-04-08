@@ -21,4 +21,17 @@ export class UserService {
         });
     });
   }
+
+  async deleteUser(username: string): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      await HttpUtility.get(ApiEndpoints.user.getUsers, {email: username})
+        .then((res) => {
+            return resolve(res);
+        })
+        .catch((err) => {
+          ErrorHandlerService.handleError(err, this.navigate);
+          return reject(err);
+        });
+    });
+  }
 }

@@ -9,67 +9,70 @@ import { PageLimit, UserRoles } from '../../../constants/GeneralConstants';
 import { useNavigate } from 'react-router-dom';
 import { UserService } from '../../../services/UserService';
 import { UserDTO } from '../../../utils/DataModel';
+import { UserDataContext } from '../../../context/UserDataContext';
 
 const User = () => {
-  const [userData, setUserData] = useState<UserDTO[]>([]);
-  const [pageNumber, setPageNumber] = useState<number>(0);
-  const [pageSize, setPageSize] = useState<number>(0);
-  const [totalElements, setTotalElements] = useState<number>(0);
+    const [userData, setUserData] = useState<UserDTO[]>([]);
+    const [pageNumber, setPageNumber] = useState<number>(0);
+    const [pageSize, setPageSize] = useState<number>(0);
+    const [totalElements, setTotalElements] = useState<number>(0);
 
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [showSpinner, setShowSpinner] = useState<boolean>(false);
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [showLoader, setShowLoader] = useState<boolean>(false);
 
-  const navigate = useNavigate();
-  const userService = new UserService(navigate);
+    const navigate = useNavigate();
+    const userService = new UserService(navigate);
 
-  const loadData = () => {
-    userService
-      .loadUser(pageNumber, PageLimit.USER_PAGE_LIMIT)
-      .then((result) => {
-        setUserData(result.userList);
-        setPageNumber(result.pageNo);
-        setPageSize(result.pageSize);
-        setTotalElements(result.totalElements);
-      });
-  };
+    const loadData = async () => {
+        setShowLoader(true);
+        console.log('i am going...');
+        await userService
+            .loadUser(pageNumber, PageLimit.USER_PAGE_LIMIT)
+            .then((result) => {
+                console.log('in then block');
+                console.log(result);
+                setUserData(result.userList);
+                setPageNumber(result.pageNo);
+                setPageSize(result.pageSize);
+                setTotalElements(result.totalElements);
+            });
+        setShowLoader(false);
+    };
 
-  useEffect(() => {
-    loadData();
-  }, []);
+    useEffect(() => {
+        loadData();
+    }, [pageNumber]);
 
-  return (
-    <div>
-      <Topbar />
+    return (
+        <UserDataContext.Provider value={{ loadData }}>
+            <div>
+                <Topbar />
+                <Loader isLoading={showLoader} />
 
-      <UserTable
-        data={userData}
-        pageNumber={pageNumber}
-        pageSize={pageSize}
-        totalElements={totalElements}
-      />
-      <AddButton onClick={() => setModalOpen(true)} />
-      <AddUserDialog
-        title="Add User"
-        open={modalOpen}
-        onCancel={() => setModalOpen(false)}
-        onAdd={() => {}}
-        isEdit={false}
-      />
-      <Loader
-        isLoading={showSpinner}
-        setIsLoading={(e: boolean) => {
-          setShowSpinner(e);
-        }}
-      />
-      <Toast message="This is a toast" />
-    </div>
-  );
+                <UserTable
+                    data={userData}
+                    pageNumber={pageNumber}
+                    pageSize={pageSize}
+                    totalElements={totalElements}
+                    setPageNumber={(pageNo: number) => setPageNumber(pageNo)}
+                />
+                <AddButton onClick={() => setModalOpen(true)} />
+                <AddUserDialog
+                    title="Add User"
+                    open={modalOpen}
+                    onCancel={() => setModalOpen(false)}
+                    onAdd={() => {}}
+                    isEdit={false}
+                />
+            </div>
+        </UserDataContext.Provider>
+    );
 };
 
 export default User;
 
 export type UserData = {
-  email: string;
-  password?: string;
-  role: UserRoles;
+    email: string;
+    password?: string;
+    role: UserRoles;
 };

@@ -8,25 +8,25 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { AlertSeverity } from '../../../constants/GeneralConstants';
 
 const Home = () => {
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
-  return (
-    <div>
-      <Topbar />
-      <AllTimezones />
-      <AddButton onClick={() => setModalOpen(true)} />
-      <AddTimezoneDialog
-        open={modalOpen}
-        onCancel={() => setModalOpen(false)}
-        onAdd={() => {}}
-        title="Add TimeZone"
-      />
-      <CssBaseline />
-      <Toast
-        message="This is a toast a great one!!"
-        alertSeverity={AlertSeverity.SUCCESS}
-      />
-    </div>
-  );
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    return (
+        <div>
+            <Topbar />
+            <AllTimezones />
+            <AddButton onClick={() => setModalOpen(true)} />
+            <AddTimezoneDialog
+                open={modalOpen}
+                onCancel={() => setModalOpen(false)}
+                onAdd={() => {}}
+                title="Add TimeZone"
+            />
+            <CssBaseline />
+            <Toast
+                message="This is a toast a great one!!"
+                alertSeverity={AlertSeverity.SUCCESS}
+            />
+        </div>
+    );
 };
 
 export default Home;

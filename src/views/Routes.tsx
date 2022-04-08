@@ -7,29 +7,32 @@ import Signup from './pages/signup/Signup';
 import User from './pages/user/User';
 
 function AuthGuard({
-  isAuthenticated,
-  component,
+    isAuthenticated,
+    component,
 }: {
-  isAuthenticated: boolean;
-  component: JSX.Element;
+    isAuthenticated: boolean;
+    component: JSX.Element;
 }) {
-  return isAuthenticated ? component : <Navigate to="/signin" />;
+    return isAuthenticated ? component : <Navigate to="/signin" />;
 }
 
 export default function RoutesHandler() {
-  const isAuthenticated = useAuth();
-  return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <AuthGuard component={<Home />} isAuthenticated={isAuthenticated} />
-        }
-      />
-      <Route path="/signin" element={<Signin />} />
-      <Route path="signup" element={<Signup />} />
-      <Route path="users" element={<User />} />
-      <Route path="server-down" element={<ServerDownPage />} />
-    </Routes>
-  );
+    const isAuthenticated = useAuth();
+    return (
+        <Routes>
+            <Route
+                path="/"
+                element={
+                    <AuthGuard
+                        component={<Home />}
+                        isAuthenticated={isAuthenticated}
+                    />
+                }
+            />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="users" element={<User />} />
+            <Route path="server-down" element={<ServerDownPage />} />
+        </Routes>
+    );
 }

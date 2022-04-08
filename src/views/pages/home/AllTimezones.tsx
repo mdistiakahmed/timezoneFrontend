@@ -18,137 +18,145 @@ import AddTimezoneDialog from './AddTimezoneDialog';
 import ConfirmationModal from '../../common-components/ConfirmationModal';
 
 const fruits: string[] = [
-  'Apple',
-  'Orange',
-  'Banana',
-  'istiak',
-  'ahmed',
-  'nishat',
+    'Apple',
+    'Orange',
+    'Banana',
+    'istiak',
+    'ahmed',
+    'nishat',
 ];
 
 interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
+    expand: boolean;
 }
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
 })(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+        duration: theme.transitions.duration.shortest,
+    }),
 }));
 
 const TimezoneCard = () => {
-  const [expanded, setExpanded] = useState(false);
-  const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
-  const [deleteConfirmationOpen, setDeleteConfirmationOpen] =
-    useState<boolean>(false);
+    const [expanded, setExpanded] = useState(false);
+    const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
+    const [deleteConfirmationOpen, setDeleteConfirmationOpen] =
+        useState<boolean>(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
 
-  return (
-    <Card>
-      <CardHeader
-        title="Shrimp and Chorizo Paella abc abc abc"
-        subheader="abc"
-      />
+    return (
+        <Card>
+            <CardHeader
+                title="Shrimp and Chorizo Paella abc abc abc"
+                subheader="abc"
+            />
 
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
-        </Typography>
-      </CardContent>
+            <CardContent>
+                <Typography variant="body2" color="text.secondary">
+                    This impressive paella is a perfect party dish and a fun
+                    meal to cook together with your guests. Add 1 cup of frozen
+                    peas along with the mussels, if you like.
+                </Typography>
+            </CardContent>
 
-      <CardActions disableSpacing>
-        <IconButton aria-label="edit" onClick={() => setEditDialogOpen(true)}>
-          <EditIcon />
-        </IconButton>
-        <IconButton
-          aria-label="delete"
-          onClick={() => setDeleteConfirmationOpen(true)}
-        >
-          <DeleteForeverIcon sx={{ fill: 'red' }} />
-        </IconButton>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
+            <CardActions disableSpacing>
+                <IconButton
+                    aria-label="edit"
+                    onClick={() => setEditDialogOpen(true)}
+                >
+                    <EditIcon />
+                </IconButton>
+                <IconButton
+                    aria-label="delete"
+                    onClick={() => setDeleteConfirmationOpen(true)}
+                >
+                    <DeleteForeverIcon sx={{ fill: 'red' }} />
+                </IconButton>
+                <ExpandMore
+                    expand={expanded}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                >
+                    <ExpandMoreIcon />
+                </ExpandMore>
+            </CardActions>
 
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and
-            set aside for 10 minutes.
-          </Typography>
-        </CardContent>
-      </Collapse>
-      <AddTimezoneDialog
-        title="Edit Timezone"
-        open={editDialogOpen}
-        onCancel={() => setEditDialogOpen(false)}
-        onAdd={() => {}}
-      />
-      <ConfirmationModal
-        title="Attention"
-        description="Want to delete this item?"
-        open={deleteConfirmationOpen}
-        onCancel={() => setDeleteConfirmationOpen(false)}
-        onConfirm={() => {}}
-        children={
-          <div>
-            <h3>name: Home</h3>
-            <h3>city: Comilla</h3>
-          </div>
-        }
-        alertSeverity={'error'}
-      />
-    </Card>
-  );
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <CardContent>
+                    <Typography paragraph>Method:</Typography>
+                    <Typography paragraph>
+                        Heat 1/2 cup of the broth in a pot until simmering, add
+                        saffron and set aside for 10 minutes.
+                    </Typography>
+                </CardContent>
+            </Collapse>
+            <AddTimezoneDialog
+                title="Edit Timezone"
+                open={editDialogOpen}
+                onCancel={() => setEditDialogOpen(false)}
+                onAdd={() => {}}
+            />
+            <ConfirmationModal
+                title="Attention"
+                description="Want to delete this item?"
+                open={deleteConfirmationOpen}
+                onCancel={() => setDeleteConfirmationOpen(false)}
+                onConfirm={() => {}}
+                children={
+                    <div>
+                        <h3>name: Home</h3>
+                        <h3>city: Comilla</h3>
+                    </div>
+                }
+                alertSeverity={'error'}
+            />
+        </Card>
+    );
 };
 
 const AllTimezones = () => {
-  return (
-    <Container component="main" sx={{ mt: 3 }}>
-      <CssBaseline />
-      <Grid container spacing={2} alignItems="center" justifyContent="center">
-        {fruits.map((e) => {
-          return (
-            <Grid item maxWidth={350} key={e}>
-              <TimezoneCard />
+    return (
+        <Container component="main" sx={{ mt: 3 }}>
+            <CssBaseline />
+            <Grid
+                container
+                spacing={2}
+                alignItems="center"
+                justifyContent="center"
+            >
+                {fruits.map((e) => {
+                    return (
+                        <Grid item maxWidth={350} key={e}>
+                            <TimezoneCard />
+                        </Grid>
+                    );
+                })}
             </Grid>
-          );
-        })}
-      </Grid>
-      <TablePagination
-        component="div"
-        rowsPerPageOptions={[]}
-        count={100}
-        rowsPerPage={5}
-        page={1}
-        onPageChange={() => {}}
-      />
-    </Container>
-  );
+            <TablePagination
+                component="div"
+                rowsPerPageOptions={[]}
+                count={100}
+                rowsPerPage={5}
+                page={1}
+                onPageChange={() => {}}
+            />
+        </Container>
+    );
 };
 
 export default AllTimezones;
 
 export type TimeZoneData = {
-  name: string;
-  city: string;
-  hourdiff: number;
-  mindiff: number;
+    name: string;
+    city: string;
+    hourdiff: number;
+    mindiff: number;
 };

@@ -59,6 +59,8 @@ export default class HttpUtility {
       ...(restRequest.method==='GET' ? {params: config.data} : {data: config.data})
     };
 
+    await HttpUtility._delay();
+
     return new Promise((resolve, reject) => {
       axios(axiosRequestConfig)
         .then((res) => {
@@ -99,6 +101,11 @@ export default class HttpUtility {
     model.message = error.message || 'Error requesting data';
     model.code = error.code || 'none';
     return model;
+  }
+
+  //TODO: remove it
+  static _delay(duration = 1000) {
+    return new Promise((resolve) => setTimeout(resolve, duration));
   }
 }
 
