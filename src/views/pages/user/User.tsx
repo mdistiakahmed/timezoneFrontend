@@ -1,64 +1,18 @@
-import { useContext, useEffect, useState } from 'react';
+import React from 'react'
 import AddButton from '../../common-components/AddButton';
 import AddUserDialog from './AddUserDialog';
 import Loader from '../../common-components/Loader';
 import Toast from '../../common-components/Toast';
 import Topbar from '../../common-components/Topbar';
 import UserTable from './UserTable';
-import { PageLimit, UserRoles } from '../../../constants/GeneralConstants';
-import { useNavigate } from 'react-router-dom';
-import { UserService } from '../../../services/UserService';
-import { UserDTO } from '../../../utils/DataModel';
+import useUserLogic from './useUserLogic';
+
+import { UserRoles } from '../../../constants/GeneralConstants';
 import { UserDataContext } from '../../../context/UserDataContext';
-import { ApplicationContext } from '../../../context/AppContext';
 
 const User = () => {
-    const [userData, setUserData] = useState<UserDTO[]>([]);
-    const [pageNumber, setPageNumber] = useState<number>(0);
-    const [pageSize, setPageSize] = useState<number>(0);
-    const [totalElements, setTotalElements] = useState<number>(0);
-
-    const [modalOpen, setModalOpen] = useState<boolean>(false);
-    const [showLoader, setShowLoader] = useState<boolean>(false);
-    const [showToast, setShowToast] = useState<boolean>(false);
-
-    const navigate = useNavigate();
-    const userService = new UserService(navigate);
-
-    const { state, dispatch } = useContext(ApplicationContext);
-    console.log(state);
-
-    const loadData = async () => {
-        setShowLoader(true);
-        try {
-            await userService
-                .getAllUsers(pageNumber, PageLimit.USER_PAGE_LIMIT)
-                .then((res) => {
-                    setUserData(res.userList);
-                    setPageSize(res.pageSize);
-                    setPageNumber(res.pageNo);
-                    setTotalElements(res.totalElements);
-                });
-        } finally {
-            setShowLoader(false);
-        }
-    };
-
-    const deleteUser = async (username: string) => {
-      setShowLoader(true);
-      await userService
-          .deleteUser(username)
-          .then(async (result) => {
-              setShowToast(true);
-              await loadData();
-          });
-      //setShowLoader(false);
-  };
-
-    useEffect(() => {
-        loadData();
-
-    }, [pageNumber]);
+    const { loadData, deleteUser, setShowToast, userTableData, setPageNumber, setModalOpen } = useUserLogic();
+    const { userData, pageNumber, pageSize, totalElements, showToast, showLoader, modalOpen } = userTableData;
 
     return (
         <UserDataContext.Provider value={{ loadData, deleteUser }}>

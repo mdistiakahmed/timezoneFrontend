@@ -114,6 +114,7 @@ const UserTable = ({
     const onChangePage = (event: any, page: number) => {
         setPageNumber(page);
     };
+    
     return (
         <Paper sx={{ mx: '10px', mt: '5px' }}>
             <TableContainer>
