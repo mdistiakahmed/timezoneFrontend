@@ -17,7 +17,7 @@ import AddUserDialog from './AddUserDialog';
 import ConfirmationModal from '../../common-components/ConfirmationModal';
 import { UserRoles } from '../../../constants/GeneralConstants';
 import { UserDTO } from '../../../utils/DataModel';
-import { UserDataContext } from '../../../context/UserDataContext';
+import { PageManager, UserDataContext } from '../../../context/UserDataContext';
 
 const StyledTableCell = styled(TableCell)(() => ({
     [`&.${tableCellClasses.head}`]: {
@@ -33,11 +33,11 @@ const UserTableRow = ({ email, role }: UserData): JSX.Element => {
     const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] =
         useState<boolean>(false);
-    const { loadData } = useContext(UserDataContext);
+    const {deleteUser} = useContext(UserDataContext) as PageManager;
 
-    const onDeleteConfirm = () => {
+    const onDeleteConfirm = async () => {
         console.log('Delete has been confirmed');
-        loadData();
+        await deleteUser(email);
         setDeleteConfirmationOpen(false);
     };
 

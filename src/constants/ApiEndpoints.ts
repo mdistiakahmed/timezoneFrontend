@@ -11,7 +11,8 @@ export class ApiEndpoints {
     };
 
     static user = {
-        getUsers: `${ApiEndpoints.BASE_URL}/users`,
+        getUsers: '/api/users',
+        deleteUser: (username:string)=> `${ApiEndpoints.BASE_URL}/users/${username}`,
     };
 
     static order = {
