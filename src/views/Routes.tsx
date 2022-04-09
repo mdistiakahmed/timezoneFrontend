@@ -23,10 +23,7 @@ export default function RoutesHandler() {
             <Route
                 path="/"
                 element={
-                    <AuthGuard
-                        component={<Home />}
-                        isAuthenticated={isAuthenticated}
-                    />
+                    <Home />
                 }
             />
             <Route path="/signin" element={<Signin />} />
