@@ -21,10 +21,6 @@ const Home = () => {
                 title="Add TimeZone"
             />
             <CssBaseline />
-            <Toast
-                message="This is a toast a great one!!"
-                alertSeverity={AlertSeverity.SUCCESS}
-            />
         </div>
     );
 };

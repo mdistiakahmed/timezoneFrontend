@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import AddButton from '../../common-components/AddButton';
 import AddUserDialog from './AddUserDialog';
 import Loader from '../../common-components/Loader';
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserService } from '../../../services/UserService';
 import { UserDTO } from '../../../utils/DataModel';
 import { UserDataContext } from '../../../context/UserDataContext';
+import { ApplicationContext } from '../../../context/AppContext';
 
 const User = () => {
     const [userData, setUserData] = useState<UserDTO[]>([]);
@@ -19,35 +20,52 @@ const User = () => {
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [showLoader, setShowLoader] = useState<boolean>(false);
+    const [showToast, setShowToast] = useState<boolean>(false);
 
     const navigate = useNavigate();
     const userService = new UserService(navigate);
 
+    const { state, dispatch } = useContext(ApplicationContext);
+    console.log(state);
+
     const loadData = async () => {
         setShowLoader(true);
-        console.log('i am going...');
-        await userService
-            .loadUser(pageNumber, PageLimit.USER_PAGE_LIMIT)
-            .then((result) => {
-                console.log('in then block');
-                console.log(result);
-                setUserData(result.userList);
-                setPageNumber(result.pageNo);
-                setPageSize(result.pageSize);
-                setTotalElements(result.totalElements);
-            });
-        setShowLoader(false);
+        try {
+            await userService
+                .getAllUsers(pageNumber, PageLimit.USER_PAGE_LIMIT)
+                .then((res) => {
+                    setUserData(res.userList);
+                    setPageSize(res.pageSize);
+                    setPageNumber(res.pageNo);
+                    setTotalElements(res.totalElements);
+                });
+        } finally {
+            setShowLoader(false);
+        }
     };
+
+    const deleteUser = async (username: string) => {
+      setShowLoader(true);
+      await userService
+          .deleteUser(username)
+          .then(async (result) => {
+              setShowToast(true);
+              await loadData();
+          });
+      //setShowLoader(false);
+  };
 
     useEffect(() => {
         loadData();
+
     }, [pageNumber]);
 
     return (
-        <UserDataContext.Provider value={{ loadData }}>
+        <UserDataContext.Provider value={{ loadData, deleteUser }}>
             <div>
                 <Topbar />
                 <Loader isLoading={showLoader} />
+                <Toast message='Hi There' show={showToast} onClose={setShowToast}/>
 
                 <UserTable
                     data={userData}
