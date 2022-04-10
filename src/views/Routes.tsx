@@ -17,16 +17,14 @@ function AuthGuard({
 }
 
 export default function RoutesHandler() {
-    const isAuthenticated = useAuth();
+    
+    const isAuthenticated = false;
     return (
         <Routes>
             <Route
                 path="/"
                 element={
-                    <AuthGuard
-                        component={<Home />}
-                        isAuthenticated={isAuthenticated}
-                    />
+                    <Home />
                 }
             />
             <Route path="/signin" element={<Signin />} />

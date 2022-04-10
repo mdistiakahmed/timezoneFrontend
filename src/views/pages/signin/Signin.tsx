@@ -9,7 +9,7 @@ import Container from '@mui/material/Container';
 import Alert from '@mui/material/Alert';
 import { AlertSeverity } from '../../../constants/GeneralConstants';
 import { useContext, useState } from 'react';
-import { AuthService } from '../../../services/AuthService';
+import useAuthService from '../../../services/AuthService';
 import { useNavigate } from 'react-router-dom';
 import { useToken } from '../../../hooks/useToken';
 import { AuthContext } from '../../../context/AuthContext';
@@ -24,7 +24,7 @@ const Signin = () => {
     const { setTokenContext } = useContext(AuthContext);
 
     const navigate = useNavigate();
-    const authService = new AuthService(navigate);
+    const { signIn } = useAuthService(navigate);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -35,8 +35,7 @@ const Signin = () => {
             setShowAlert(true);
             setAlertMessage('Username or Password can not be empty');
         } else {
-            authService
-                .signIn({ username: email, password: password })
+            signIn({ username: email, password: password })
                 .then(async (res) => {
                     setToken(res.token);
                     setTokenContext(res.token);

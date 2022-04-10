@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import ValidationService from '../../../services/ValidationService';
 import Alert from '@mui/material/Alert';
 import { AlertSeverity } from '../../../constants/GeneralConstants';
-import { AuthService } from '../../../services/AuthService';
+import useAuthService from '../../../services/AuthService';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../common-components/Loader';
 
@@ -26,7 +26,7 @@ const Signup = () => {
     const [showLoader, setShowLoader] = useState<boolean>(false);
 
     const navigate = useNavigate();
-    const authService = new AuthService(navigate);
+    const { signUp } = useAuthService(navigate);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -44,8 +44,7 @@ const Signup = () => {
             const email = '' + inputdata.get('email')?.toString();
             const password = '' + inputdata.get('password')?.toString();
             //TODO: first name, last name
-            await authService
-                .signUp({
+            await signUp({
                     firstname: 'a',
                     lastname: 'b',
                     username: email,

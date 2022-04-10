@@ -4,10 +4,12 @@ import { useState } from 'react';
 import { AlertSeverity } from '../../constants/GeneralConstants';
 
 const Toast = ({
-    message,
+    message = 'User Action Completed',
     alertSeverity = AlertSeverity.SUCCESS,
+    show ,
+    onClose
 }: ToastProps) => {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(show);
     const handleClose = (
         event?: React.SyntheticEvent | Event,
         reason?: string,
@@ -16,6 +18,7 @@ const Toast = ({
             return;
         }
         setOpen(false);
+        onClose(false);
     };
 
     return (
@@ -44,4 +47,6 @@ export default Toast;
 type ToastProps = {
     message: string;
     alertSeverity?: AlertColor;
+    show: boolean;
+    onClose: (x:boolean) => void;
 };

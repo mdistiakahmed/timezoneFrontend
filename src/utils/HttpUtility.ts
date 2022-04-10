@@ -46,6 +46,17 @@ export default class HttpUtility {
     );
   }
 
+  static async delete(endpoint: string, data: any) {
+    const config = data ? { data } : undefined;
+    return HttpUtility._request(
+      {
+        url: endpoint,
+        method: RequestMethod.Delete as Method,
+      },
+      config,
+    );
+  }
+
   static async _request(restRequest: RestRequest, config: any) {
     const axiosRequestConfig = {
       method: restRequest.method,
@@ -56,7 +67,7 @@ export default class HttpUtility {
         'Content-Type': 'application/json',
         ...(isAuthTokenNeeded(restRequest.url) && {Authorization: `Bearer ${localStorage.getItem('AUTH_TOKEN')}`}),
       },
-      ...(restRequest.method==='GET' ? {params: config.data} : {data: config.data})
+      ...(restRequest.method==='GET' ? {params: config?.data} : {data: config?.data})
     };
 
     await HttpUtility._delay();
