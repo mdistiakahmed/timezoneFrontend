@@ -1,4 +1,4 @@
-import { SignupFormErrors } from "../views/pages/signup/Signup";
+import { SignupFormErrors } from "../views/pages/signup/useSignupLogic";
 
 
 export default class ValidationService {

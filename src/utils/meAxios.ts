@@ -1,8 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { NavigateFunction } from 'react-router-dom';
 import { AppReducerActionKind } from '../hooks/useAppReducer';
 
-const AxiosHandler = (navigate: NavigateFunction, dispatch: any) => {
+const AxiosHandler = (dispatch: any) => {
     const meAxios = axios.create({
         baseURL: process.env.REACT_APP_SERVER_URL
     });
@@ -11,7 +10,12 @@ const AxiosHandler = (navigate: NavigateFunction, dispatch: any) => {
         if (config.headers === undefined) {
             config.headers = {};
         }
-        config.headers['Authorization'] = `Bearer ${localStorage.getItem('AUTH_TOKEN')}`;
+        console.log('I am in set headers...');
+        //TODO: make a function for it
+        if(!(config.url?.endsWith('signup') || config.url?.endsWith('signin'))){
+            console.log('adding auth token........');
+            config.headers['Authorization'] = `Bearer ${localStorage.getItem('AUTH_TOKEN')}`;
+        }
         config.headers['Access-Control-Allow-Origin'] = '*';
         config.headers['Accept'] = 'application/json';
         config.headers['Content-Type'] = 'application/json';
@@ -25,7 +29,6 @@ const AxiosHandler = (navigate: NavigateFunction, dispatch: any) => {
     meAxios.interceptors.response.use(
         (response) => response,
         (error) => {
-            console.log("Error Found: ", error);
             dispatch({ type: AppReducerActionKind.ERROR, payload: error.message ?? 'Unknown Error' });
             return Promise.reject(error);
         },

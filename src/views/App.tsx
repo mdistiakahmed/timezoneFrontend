@@ -2,6 +2,7 @@ import './App.css';
 import RoutesHandler from './Routes';
 import { useAppReducer } from '../hooks/useAppReducer';
 import { ApplicationContext } from '../context/AppContext';
+import ToastAlert from './pages/ToastAlert';
 
 function App() {
 
@@ -10,6 +11,7 @@ function App() {
         <ApplicationContext.Provider value={{ state, dispatch }}>
             <div className="App">
                 <RoutesHandler />
+                <ToastAlert />
             </div>
         </ApplicationContext.Provider>
     );

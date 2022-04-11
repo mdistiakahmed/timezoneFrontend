@@ -8,45 +8,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Alert from '@mui/material/Alert';
 import { AlertSeverity } from '../../../constants/GeneralConstants';
-import { useContext, useState } from 'react';
-import useAuthService from '../../../services/AuthService';
-import { useNavigate } from 'react-router-dom';
-import { useToken } from '../../../hooks/useToken';
-import { AuthContext } from '../../../context/AuthContext';
+import useSigninLogic from './useSigninLogic';
 
 const Signin = () => {
-    // alert
-    const [showAlert, setShowAlert] = useState<boolean>(false);
-    const [alertMessage, setAlertMessage] = useState<string>('');
-    // set token upon success
-    const { setToken } = useToken();
-
-    const { setTokenContext } = useContext(AuthContext);
-
-    const navigate = useNavigate();
-    const { signIn } = useAuthService(navigate);
-
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const inputdata = new FormData(event.currentTarget);
-        const email = '' + inputdata.get('email')?.toString();
-        const password = '' + inputdata.get('password')?.toString();
-        if (email.length === 0 || password.length === 0) {
-            setShowAlert(true);
-            setAlertMessage('Username or Password can not be empty');
-        } else {
-            signIn({ username: email, password: password })
-                .then(async (res) => {
-                    setToken(res.token);
-                    setTokenContext(res.token);
-                    navigate('/');
-                })
-                .catch((err) => {
-                    setShowAlert(true);
-                    setAlertMessage('Error: ' + err.status + ' ' + err.message);
-                });
-        }
-    };
+    const { showAlert, alertMessage, handleSubmit} = useSigninLogic();
 
     return (
         <Container component="main" maxWidth="xs">
