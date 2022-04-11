@@ -4,22 +4,20 @@ import useUserLogic from './useUserLogic';
 
 import { UserRoles } from '../../../constants/GeneralConstants';
 import { UserDataContext } from '../../../context/UserDataContext';
+import AddButton from '../../common-components/AddButton';
 
 const User = () => {
-    const { loadData, deleteUser, userTableData, setPageNumber } = useUserLogic();
-    const { userData, pageNumber, pageSize, totalElements } = userTableData;
+    const { userTableData, loadData, deleteData, setPageNumber } =
+        useUserLogic();
 
     return (
-        <UserDataContext.Provider value={{ loadData, deleteUser }}>
+        <UserDataContext.Provider
+            value={{ userTableData, loadData, deleteData, setPageNumber }}
+        >
             <div>
                 <Topbar />
-                <UserTable
-                    data={userData}
-                    pageNumber={pageNumber}
-                    pageSize={pageSize}
-                    totalElements={totalElements}
-                    setPageNumber={(pageNo: number) => setPageNumber(pageNo)}
-                />
+                <UserTable />
+                <AddButton />
             </div>
         </UserDataContext.Provider>
     );

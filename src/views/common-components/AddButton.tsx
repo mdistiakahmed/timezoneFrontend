@@ -26,5 +26,5 @@ const AddButton = ({ onClick }: AddButtonProps): JSX.Element => {
 export default AddButton;
 
 type AddButtonProps = {
-    onClick: () => void;
+    onClick?: () => void;
 };

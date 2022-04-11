@@ -1,9 +1,16 @@
 import { createContext } from 'react';
+import { UserInterface } from '../views/pages/user/useUserLogic';
 
-export const UserDataContext = createContext<PageManager | null>(null);
+export const UserDataContext = createContext<UserDataContextType>({
+    userTableData: {userData:[], pageNumber: 0, pageSize: 0, totalElements: 0},
+    loadData: () => {},
+    deleteData: () => {},
+    setPageNumber: ()=>{},
+});
 
-//TODO : update name of pageManager to meaningfull something
-export type PageManager = {
-    loadData: ()=>void;
-    deleteUser: (username: string) => void;
-}
+export type UserDataContextType = {
+    userTableData: UserInterface;
+    loadData: () => any;
+    deleteData: (username: string) => any;
+    setPageNumber: (pageNo: number) => void;
+};

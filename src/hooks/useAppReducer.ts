@@ -11,17 +11,17 @@ export enum AppReducerActionKind {
 // An interface for our actions
 export type AppReducerAction = {
     type: AppReducerActionKind;
-    payload?: string;
+    payload?: any;
 }
 
 // An interface for our state
 export type AppState = {
-    alert: string;
+    alert: any;
     token: string;
 }
 
 const initialState: AppState = {
-    alert: '',
+    alert: {},
     token: '',
 };
 
@@ -29,15 +29,11 @@ const appReducerFunction = (state: AppState, action: AppReducerAction) => {
     const { type, payload } = action;
     switch (type) {
         case AppReducerActionKind.ERROR:
-            console.log("Dispatched .... ");
-            console.log("Action Payload: ", payload);
             return {
                 ...state,
-                alert: payload ?? 'Unknown Error'
+                alert: payload ?? {msg:'Unknown Error'}
             }
             case AppReducerActionKind.SET_TOKEN:
-                console.log("Dispatched .... ");
-                console.log("Action Payload: ", payload);
                 return {
                     ...state,
                     token: payload ?? ''

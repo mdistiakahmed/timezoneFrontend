@@ -1,12 +1,10 @@
-import { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
 import UserServiceFunction from '../../../services/UserService';
 import { UserDTO } from '../../../utils/DataModel';
 import { ApplicationContext } from '../../../context/AppContext';
-import { PageLimit } from '../../../constants/GeneralConstants';
+//import { PageLimit } from '../../../constants/GeneralConstants';
 
-
-interface UserInterface {
+export interface UserInterface {
     userData: UserDTO[];
     pageNumber: number;
     pageSize: number;
@@ -14,33 +12,29 @@ interface UserInterface {
 }
 
 const useUserLogic = () => {
-
-    const [userLogic, setUserLogic] = useState<UserInterface>({
+    const [userTableData, setUserTableData] = useState<UserInterface>({
         userData: [],
         pageNumber: 0,
         pageSize: 0,
         totalElements: 0,
-    })
+    });
 
-    const navigate = useNavigate();
-    const { state, dispatch } = useContext(ApplicationContext);
-    const userService = UserServiceFunction(navigate, dispatch);
+    const { dispatch } = useContext(ApplicationContext);
+    const userService = UserServiceFunction(dispatch);
 
     const setPageNumber = (pageNo: number) => {
-        setUserLogic({
-            ...userLogic,
-            pageNumber: pageNo
-        })
-    }
-
-
+        setUserTableData({
+            ...userTableData,
+            pageNumber: pageNo,
+        });
+    };
 
     const loadData = async () => {
         await userService
-            .getAllUsers(userLogic.pageNumber, PageLimit.USER_PAGE_LIMIT)
+            .getAllUsers(userTableData.pageNumber, 1) //PageLimit.USER_PAGE_LIMIT
             .then((res) => {
-                setUserLogic({
-                    ...userLogic,
+                setUserTableData({
+                    ...userTableData,
                     userData: res.userList,
                     pageSize: res.pageSize,
                     pageNumber: res.pageNo,
@@ -49,24 +43,24 @@ const useUserLogic = () => {
             });
     };
 
-    const deleteUser = async (username: string) => {
-      await userService
-          .deleteUser(username)
-          .then(async (result) => {
-              await loadData();
-          });
-  };
+    // make seperate :  make delete and deleteAndLoad method
+    const deleteData = async (username: string) => {
+        await userService.deleteUser(username).then(async (result) => {
+            await loadData();
+        });
+    };
 
     useEffect(() => {
         loadData();
-    }, [userLogic.pageNumber, state.alert]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userTableData.pageNumber]);
 
-    return { 
-        loadData, 
-        deleteUser, 
+    return {
+        loadData,
+        deleteData,
         setPageNumber,
-        userTableData: userLogic, 
-     };
-}
+        userTableData: userTableData,
+    };
+};
 
-export default useUserLogic
+export default useUserLogic;

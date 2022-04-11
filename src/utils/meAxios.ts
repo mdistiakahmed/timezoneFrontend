@@ -29,7 +29,7 @@ const AxiosHandler = (dispatch: any) => {
     meAxios.interceptors.response.use(
         (response) => response,
         (error) => {
-            dispatch({ type: AppReducerActionKind.ERROR, payload: error.message ?? 'Unknown Error' });
+            dispatch({ type: AppReducerActionKind.ERROR, payload: {msg: error.message ?? 'Unknown Error'} });
             return Promise.reject(error);
         },
     );

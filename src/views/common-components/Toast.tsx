@@ -6,8 +6,8 @@ import { AlertSeverity } from '../../constants/GeneralConstants';
 const Toast = ({
     message = 'User Action Completed',
     alertSeverity = AlertSeverity.SUCCESS,
-    show ,
-    onClose
+    show,
+    onClose,
 }: ToastProps) => {
     const [open, setOpen] = useState(show);
     const handleClose = (
@@ -48,5 +48,5 @@ type ToastProps = {
     message: string;
     alertSeverity?: AlertColor;
     show: boolean;
-    onClose: (x:boolean) => void;
+    onClose: (x: boolean) => void;
 };

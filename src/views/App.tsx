@@ -5,8 +5,7 @@ import { ApplicationContext } from '../context/AppContext';
 import ToastAlert from './pages/ToastAlert';
 
 function App() {
-
-    const {state, dispatch} = useAppReducer();
+    const { state, dispatch } = useAppReducer();
     return (
         <ApplicationContext.Provider value={{ state, dispatch }}>
             <div className="App">

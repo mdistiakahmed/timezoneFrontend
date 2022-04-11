@@ -6,12 +6,10 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Alert from '@mui/material/Alert';
-import { AlertSeverity } from '../../../constants/GeneralConstants';
 import useSigninLogic from './useSigninLogic';
 
 const Signin = () => {
-    const { showAlert, alertMessage, handleSubmit} = useSigninLogic();
+    const { handleSubmit } = useSigninLogic();
 
     return (
         <Container component="main" maxWidth="xs">
@@ -27,10 +25,6 @@ const Signin = () => {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-
-                {showAlert && (
-                    <Alert severity={AlertSeverity.ERROR}>{alertMessage}</Alert>
-                )}
 
                 <Box
                     component="form"

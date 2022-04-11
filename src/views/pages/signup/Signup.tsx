@@ -12,8 +12,14 @@ import Loader from '../../common-components/Loader';
 import useSignupLogic from './useSignupLogic';
 
 const Signup = () => {
-    
-    const {showLoader, showAlert, alertMessage, handleSubmit, errors, handleChange} = useSignupLogic();
+    const {
+        showLoader,
+        showAlert,
+        alertMessage,
+        handleSubmit,
+        errors,
+        handleChange,
+    } = useSignupLogic();
 
     return (
         <Container component="main" maxWidth="xs">
@@ -116,5 +122,3 @@ const Signup = () => {
 };
 
 export default Signup;
-
-
