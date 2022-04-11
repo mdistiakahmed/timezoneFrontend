@@ -16,8 +16,17 @@ const UserServiceFunction = (dispatch: any) => {
       .then(res => Promise.resolve(res.data));
   }
 
+  // Change param time both front and back-end
+  const updateUser = async(data: UserDTO): Promise<any> => {
+    return meAxios.put(ApiEndpoints.user.updateUser, data)
+      .then(res => {
+        console.log(res.data);
+        Promise.resolve(res.data);
+      });
+  }
 
-  return { getAllUsers, deleteUser};
+
+  return { getAllUsers, deleteUser, updateUser};
 }
 
 export type UserDataResponseModel = {

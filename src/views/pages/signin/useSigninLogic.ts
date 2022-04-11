@@ -1,18 +1,23 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import useAuthService from '../../../services/AuthService';
 import { useNavigate } from 'react-router-dom';
-import { useToken } from '../../../hooks/useToken';
 import { ApplicationContext } from '../../../context/AppContext';
 import { AppReducerActionKind } from '../../../hooks/useAppReducer';
 
 const useSigninLogic = () => {
-    // set token upon success
-    const { setToken } = useToken();
+    const [busy, setBusy] = useState<boolean>(false);
 
     const { dispatch } = useContext(ApplicationContext);
 
     const navigate = useNavigate();
     const { signIn } = useAuthService(navigate, dispatch);
+
+    useEffect(() => {
+        // clear memory during exist form this page (component unmount)
+        return () => {
+            setBusy(false);
+        };
+    }, []);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -21,25 +26,28 @@ const useSigninLogic = () => {
         const password = '' + inputdata.get('password')?.toString();
         if (email.length === 0 || password.length === 0) {
             dispatch({
-                type: AppReducerActionKind.ERROR,
+                type: AppReducerActionKind.ALERT,
                 payload: { msg: 'Username or Password can not be empty' },
             });
         } else {
-            signIn({ username: email, password: password }).then(
-                async (res) => {
-                    setToken(res.token);
+            setBusy(true);
+            signIn({ username: email, password: password })
+                .then(async (res) => {
                     dispatch({
                         type: AppReducerActionKind.SET_TOKEN,
                         payload: res.token ?? '',
                     });
                     navigate('/');
-                },
-            );
+                })
+                .finally(() => {
+                    setBusy(false);
+                });
         }
     };
 
     return {
         handleSubmit,
+        busy,
     };
 };
 

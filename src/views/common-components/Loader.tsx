@@ -2,10 +2,14 @@ import { CircularProgress } from '@mui/material';
 import CSS from 'csstype';
 
 const divStyles: CSS.Properties = {
-    backgroundColor: 'rgba(49, 37, 37, 0.2)',
+    backgroundColor: '#251a1a99',
     position: 'fixed',
     top: 0,
     left: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
     height: '100%',
     width: '100%',
     zIndex: 200000,
@@ -17,10 +21,7 @@ const Loader = ({ isLoading }: LoaderProps) => {
     }
     return (
         <div style={divStyles}>
-            <CircularProgress
-                size={100}
-                sx={{ position: 'absolute', top: '40%', left: '40%' }}
-            />
+            <CircularProgress size={100} sx={{}} />
         </div>
     );
 };

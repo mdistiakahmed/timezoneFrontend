@@ -11,20 +11,23 @@ import { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Avatar from '@mui/material/Avatar';
-import { useToken } from '../../hooks/useToken';
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ApplicationContext } from '../../context/AppContext';
+import { AppReducerActionKind } from '../../hooks/useAppReducer';
+
+const MenuOptions = [
+    { name: 'Home', value: '/' },
+    { name: 'Users', value: '/users' },
+];
 
 const Topbar = () => {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     // for navigate to signin page upon logout
     const navigate = useNavigate();
+    const { pathname } = useLocation();
 
-    const { setTokenContext } = useContext(AuthContext);
-
-    // set token upon success
-    const { removeToken } = useToken();
+    const { dispatch } = useContext(ApplicationContext);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -42,9 +45,7 @@ const Topbar = () => {
     };
 
     const handleLogout = async () => {
-        removeToken();
-        setTokenContext(null);
-        navigate('/signin');
+        dispatch({ type: AppReducerActionKind.REMOVE_TOKEN, payload: {} });
     };
 
     return (
@@ -95,15 +96,26 @@ const Topbar = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            <MenuItem key={1} onClick={() => {}}>
-                                <Typography textAlign="center">Home</Typography>
-                            </MenuItem>
-
-                            <MenuItem key={2} onClick={() => {}}>
-                                <Typography textAlign="center">
-                                    Users
-                                </Typography>
-                            </MenuItem>
+                            {MenuOptions.map(({ name, value }) => {
+                                return (
+                                    <MenuItem
+                                        key={name}
+                                        onClick={() => {
+                                            navigate(value);
+                                        }}
+                                        sx={{
+                                            backgroundColor:
+                                                pathname === value
+                                                    ? '#090d0573'
+                                                    : 'transparent',
+                                        }}
+                                    >
+                                        <Typography textAlign="center">
+                                            {name}
+                                        </Typography>
+                                    </MenuItem>
+                                );
+                            })}
                         </Menu>
                     </Box>
                     {/* when screen is greater then medium  */}
@@ -126,36 +138,30 @@ const Topbar = () => {
                             display: { xs: 'none', md: 'flex' },
                         }}
                     >
-                        <Button
-                            onClick={handleCloseNavMenu}
-                            sx={{
-                                my: 2,
-                                color: 'white',
-                                display: 'block',
-                                ':hover': {
-                                    bgcolor: 'black',
-                                    color: 'white',
-                                },
-                            }}
-                            href="/"
-                        >
-                            Home
-                        </Button>
-                        <Button
-                            onClick={handleCloseNavMenu}
-                            sx={{
-                                my: 2,
-                                color: 'white',
-                                display: 'block',
-                                ':hover': {
-                                    bgcolor: 'black',
-                                    color: 'white',
-                                },
-                            }}
-                            href="/users"
-                        >
-                            Users
-                        </Button>
+                        {MenuOptions.map(({ name, value }) => {
+                            return (
+                                <Button
+                                    key={name}
+                                    onClick={() => navigate(value)}
+                                    sx={{
+                                        my: 2,
+                                        marginRight: 2,
+                                        color: 'white',
+                                        display: 'block',
+                                        ':hover': {
+                                            bgcolor: '#b2bda873',
+                                            color: 'white',
+                                        },
+                                        backgroundColor:
+                                            pathname === value
+                                                ? '#090d0573'
+                                                : 'transparent',
+                                    }}
+                                >
+                                    {name}
+                                </Button>
+                            );
+                        })}
                     </Box>
 
                     {/* Right side user settings*/}
@@ -165,10 +171,7 @@ const Topbar = () => {
                                 onClick={handleOpenUserMenu}
                                 sx={{ p: 0 }}
                             >
-                                <Avatar
-                                    alt="User"
-                                    src="/static/images/avatar/2.jpg"
-                                />
+                                <Avatar alt="User" />
                             </IconButton>
                         </Tooltip>
                         <Menu

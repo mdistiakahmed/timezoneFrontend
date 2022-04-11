@@ -30,8 +30,9 @@ const useUserLogic = () => {
     };
 
     const loadData = async () => {
+        // set loader state = true
         await userService
-            .getAllUsers(userTableData.pageNumber, 1) //PageLimit.USER_PAGE_LIMIT
+            .getAllUsers(userTableData.pageNumber, 10) //PageLimit.USER_PAGE_LIMIT
             .then((res) => {
                 setUserTableData({
                     ...userTableData,
@@ -50,6 +51,21 @@ const useUserLogic = () => {
         });
     };
 
+    const updateData = async (username: string, role: string) => {
+        const isSysAdmin = role === 'admin';
+        await userService
+            .updateUser({
+                username: username,
+                sysadmin: isSysAdmin,
+                password: 'a',
+                firstname: 'a',
+                lastname: 'b',
+            })
+            .then(async (result) => {
+                await loadData();
+            });
+    };
+
     useEffect(() => {
         loadData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,6 +74,7 @@ const useUserLogic = () => {
     return {
         loadData,
         deleteData,
+        updateData,
         setPageNumber,
         userTableData: userTableData,
     };

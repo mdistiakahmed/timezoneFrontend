@@ -34,7 +34,7 @@ const ToastAlert = () => {
             >
                 <Alert
                     onClose={handleClose}
-                    severity="error"
+                    severity={alert?.type ?? 'error'}
                     sx={{ width: '100%' }}
                     variant="filled"
                 >

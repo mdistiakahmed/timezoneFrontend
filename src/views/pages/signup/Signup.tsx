@@ -1,4 +1,3 @@
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
@@ -6,26 +5,16 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Alert from '@mui/material/Alert';
-import { AlertSeverity } from '../../../constants/GeneralConstants';
-import Loader from '../../common-components/Loader';
 import useSignupLogic from './useSignupLogic';
+import LoadingButton from '@mui/lab/LoadingButton';
+import LoginIcon from '@mui/icons-material/Login';
 
 const Signup = () => {
-    const {
-        showLoader,
-        showAlert,
-        alertMessage,
-        handleSubmit,
-        errors,
-        handleChange,
-    } = useSignupLogic();
+    const { handleSubmit, errors, handleChange, busy } = useSignupLogic();
 
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
-            <Loader isLoading={showLoader} />
-
             <Box
                 sx={{
                     marginTop: 8,
@@ -37,10 +26,6 @@ const Signup = () => {
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
-                {showAlert && (
-                    <Alert severity={AlertSeverity.ERROR}>{alertMessage}</Alert>
-                )}
-
                 <Box
                     component="form"
                     noValidate
@@ -100,14 +85,17 @@ const Signup = () => {
                             />
                         </Grid>
                     </Grid>
-                    <Button
+                    <LoadingButton
                         type="submit"
                         fullWidth
                         variant="contained"
+                        loading={busy}
+                        endIcon={<LoginIcon />}
+                        loadingPosition="end"
                         sx={{ mt: 3, mb: 2 }}
                     >
                         Sign Up
-                    </Button>
+                    </LoadingButton>
                     <Grid container justifyContent="flex-end">
                         <Grid item>
                             <Link href="/signin" variant="body2">

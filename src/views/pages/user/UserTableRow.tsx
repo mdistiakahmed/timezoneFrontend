@@ -6,11 +6,11 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { UserData } from './User';
 import { useContext, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
-import AddUserDialog from './AddUserDialog';
 import ConfirmationModal from '../../common-components/ConfirmationModal';
 import { UserDataContext } from '../../../context/UserDataContext';
 import { ApplicationContext } from '../../../context/AppContext';
 import { AppReducerActionKind } from '../../../hooks/useAppReducer';
+import UpdateUserDialog from './UpdateUserDialog';
 
 const UserTableRow = ({ email, role }: UserData): JSX.Element => {
     const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
@@ -20,12 +20,11 @@ const UserTableRow = ({ email, role }: UserData): JSX.Element => {
     const { dispatch } = useContext(ApplicationContext);
 
     const onDeleteConfirm = async () => {
-        console.log('Delete has been confirmed');
         setDeleteConfirmationOpen(false);
         await deleteData(email);
         dispatch({
-            type: AppReducerActionKind.ERROR,
-            payload: { msg: 'Delete Successfull' },
+            type: AppReducerActionKind.ALERT,
+            payload: { msg: 'Delete Successfull', type: 'success' },
         });
     };
 
@@ -65,13 +64,10 @@ const UserTableRow = ({ email, role }: UserData): JSX.Element => {
                     </Grid>
                 </Grid>
             </TableCell>
-            <AddUserDialog
-                title="Edit User"
+            <UpdateUserDialog
                 open={editDialogOpen}
                 onCancel={() => setEditDialogOpen(false)}
-                onAdd={() => {}}
                 userData={{ email: email, role: role }}
-                isEdit={true}
             />
 
             <ConfirmationModal

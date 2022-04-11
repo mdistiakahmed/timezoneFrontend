@@ -1,10 +1,6 @@
-import { useToken } from './useToken';
 import jwt_decode from 'jwt-decode';
 
-export const useAuth = () => {
-    const { getToken } = useToken();
-
-    const rawToken = getToken();
+export const useAuth = (rawToken: string) => {
     let isAuthenticated = false;
     if (rawToken) {
         const decoded: any = jwt_decode(rawToken);

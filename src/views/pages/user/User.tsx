@@ -7,12 +7,18 @@ import { UserDataContext } from '../../../context/UserDataContext';
 import AddButton from '../../common-components/AddButton';
 
 const User = () => {
-    const { userTableData, loadData, deleteData, setPageNumber } =
+    const { userTableData, loadData, deleteData, updateData, setPageNumber } =
         useUserLogic();
 
     return (
         <UserDataContext.Provider
-            value={{ userTableData, loadData, deleteData, setPageNumber }}
+            value={{
+                userTableData,
+                loadData,
+                deleteData,
+                updateData,
+                setPageNumber,
+            }}
         >
             <div>
                 <Topbar />

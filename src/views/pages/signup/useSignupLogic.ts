@@ -10,11 +10,8 @@ const useSignupLogic = () => {
 const [password, setPassword] = useState('');
 //Errors
 const [errors, setErrors] = useState<SignupFormErrors>({});
-// alert
-const [showAlert, setShowAlert] = useState<boolean>(false);
-const [alertMessage, setAlertMessage] = useState<string>('');
-// loader
-const [showLoader, setShowLoader] = useState<boolean>(false);
+// show busy button
+const [busy, setBusy] = useState(false);
 
 const navigate = useNavigate();
 const { dispatch } = useContext(ApplicationContext);
@@ -28,15 +25,16 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         errors,
     );
     if (hasError) {
-        setShowAlert(true);
-        setAlertMessage('Provide valid information!');
+        //setShowAlert(true);
+        //setAlertMessage('Provide valid information!');
     } else {
         //setShowAlert(false);
         //setShowLoader(true);
         const email = '' + inputdata.get('email')?.toString();
         const password = '' + inputdata.get('password')?.toString();
         //TODO: first name, last name
-        await signUp({
+        setBusy(true);
+        signUp({
                 firstname: 'a',
                 lastname: 'b',
                 username: email,
@@ -45,6 +43,8 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
             })
             .then((res) => {
                 navigate('/signin');
+            }).finally(() => {
+                setBusy(false);
             })
 
     }
@@ -53,8 +53,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 useEffect(() => {
     // clear memory during exist form this page (component unmount)
     return () => {
-        setShowLoader(false);
-        setShowAlert(false);
+        setBusy(false);
     };
 }, []);
 
@@ -74,12 +73,10 @@ const handleChange = (event: any) => {
 };
 
 return { 
-    showLoader,
-    showAlert,
-    alertMessage,
     handleSubmit,
     errors,
     handleChange,
+    busy,
  };
 
 }

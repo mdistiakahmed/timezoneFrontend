@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { ApplicationContext } from '../context/AppContext';
 import { useAuth } from '../hooks/useAuth';
 import Home from './pages/home/Home';
 import ServerDownPage from './pages/misc/ServerDownPage';
@@ -17,7 +19,8 @@ function AuthGuard({
 }
 
 export default function RoutesHandler() {
-    const isAuthenticated = useAuth();
+    const { state } = useContext(ApplicationContext);
+    const isAuthenticated = useAuth(state.token.value);
     return (
         <Routes>
             <Route
@@ -29,9 +32,17 @@ export default function RoutesHandler() {
                     />
                 }
             />
+            <Route
+                path="users"
+                element={
+                    <AuthGuard
+                        component={<User />}
+                        isAuthenticated={isAuthenticated}
+                    />
+                }
+            />
             <Route path="/signin" element={<Signin />} />
             <Route path="signup" element={<Signup />} />
-            <Route path="users" element={<User />} />
             <Route path="server-down" element={<ServerDownPage />} />
         </Routes>
     );

@@ -10,7 +10,6 @@ const AxiosHandler = (dispatch: any) => {
         if (config.headers === undefined) {
             config.headers = {};
         }
-        console.log('I am in set headers...');
         //TODO: make a function for it
         if(!(config.url?.endsWith('signup') || config.url?.endsWith('signin'))){
             console.log('adding auth token........');
@@ -29,7 +28,7 @@ const AxiosHandler = (dispatch: any) => {
     meAxios.interceptors.response.use(
         (response) => response,
         (error) => {
-            dispatch({ type: AppReducerActionKind.ERROR, payload: {msg: error.message ?? 'Unknown Error'} });
+            dispatch({ type: AppReducerActionKind.ALERT, payload: {msg: error.message ?? 'Unknown Error'} });
             return Promise.reject(error);
         },
     );
