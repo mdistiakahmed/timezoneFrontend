@@ -5,3 +5,8 @@ export type UserDTO = {
     password: string;
     sysadmin?: boolean;
   };
+
+  export type UserSignUpModel = {
+    username: string;
+    password: string;
+  };

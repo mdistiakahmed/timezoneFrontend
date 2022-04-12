@@ -10,7 +10,7 @@ const useSigninLogic = () => {
     const { dispatch } = useContext(ApplicationContext);
 
     const navigate = useNavigate();
-    const { signIn } = useAuthService(navigate, dispatch);
+    const { signIn } = useAuthService(dispatch);
 
     useEffect(() => {
         // clear memory during exist form this page (component unmount)

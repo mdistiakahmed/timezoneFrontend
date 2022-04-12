@@ -3,6 +3,7 @@ import ValidationService from '../../../services/ValidationService';
 import useAuthService from '../../../services/AuthService';
 import { useNavigate } from 'react-router-dom';
 import { ApplicationContext } from '../../../context/AppContext';
+import { AppReducerActionKind } from '../../../hooks/useAppReducer';
 
 
 const useSignupLogic = () => {
@@ -15,7 +16,7 @@ const [busy, setBusy] = useState(false);
 
 const navigate = useNavigate();
 const { dispatch } = useContext(ApplicationContext);
-const { signUp } = useAuthService(navigate, dispatch);
+const { signUp } = useAuthService(dispatch);
 
 const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,24 +26,24 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         errors,
     );
     if (hasError) {
-        //setShowAlert(true);
-        //setAlertMessage('Provide valid information!');
+        dispatch({
+            type: AppReducerActionKind.ALERT,
+            payload: { msg: 'Provide valid information!' },
+        });
     } else {
-        //setShowAlert(false);
-        //setShowLoader(true);
         const email = '' + inputdata.get('email')?.toString();
         const password = '' + inputdata.get('password')?.toString();
-        //TODO: first name, last name
         setBusy(true);
         signUp({
-                firstname: 'a',
-                lastname: 'b',
                 username: email,
                 password: password,
-                sysadmin: false,
             })
             .then((res) => {
-                navigate('/signin');
+                dispatch({
+                    type: AppReducerActionKind.SET_TOKEN,
+                    payload: res.token ?? '',
+                });
+                navigate('/');
             }).finally(() => {
                 setBusy(false);
             })

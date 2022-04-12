@@ -31,7 +31,7 @@ const useUserLogic = () => {
 
     const loadData = async () => {
         // set loader state = true
-        await userService
+        userService
             .getAllUsers(userTableData.pageNumber, 10) //PageLimit.USER_PAGE_LIMIT
             .then((res) => {
                 setUserTableData({
@@ -46,14 +46,14 @@ const useUserLogic = () => {
 
     // make seperate :  make delete and deleteAndLoad method
     const deleteData = async (username: string) => {
-        await userService.deleteUser(username).then(async (result) => {
-            await loadData();
+        userService.deleteUser(username).then(async (result) => {
+            loadData();
         });
     };
 
     const updateData = async (username: string, role: string) => {
         const isSysAdmin = role === 'admin';
-        await userService
+        userService
             .updateUser({
                 username: username,
                 sysadmin: isSysAdmin,
@@ -62,7 +62,7 @@ const useUserLogic = () => {
                 lastname: 'b',
             })
             .then(async (result) => {
-                await loadData();
+                loadData();
             });
     };
 

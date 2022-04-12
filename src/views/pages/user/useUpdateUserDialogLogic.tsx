@@ -28,10 +28,13 @@ const useUpdateUserDialogLogic = ({
         if (Object.keys(errors).length) {
             alert('has errors' + errors);
         } else if (currentRole === userData?.role.toLocaleUpperCase()) {
-            alert('Nothing to update');
+            dispatch({
+                type: AppReducerActionKind.ALERT,
+                payload: { msg: 'Nothing to update', type: 'warning' },
+            });
+            onCancel();
         } else {
-            //TODO: on api fail, close the modal
-            await updateData(email, currentRole.toLocaleLowerCase());
+            updateData(email, currentRole.toLocaleLowerCase());
             dispatch({
                 type: AppReducerActionKind.ALERT,
                 payload: { msg: 'Update Successfull', type: 'success' },
