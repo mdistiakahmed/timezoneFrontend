@@ -16,11 +16,4 @@ export class ApiEndpoints {
         updateUser: '/api/users'
     };
 
-    static order = {
-        placeOrder: `${ApiEndpoints.BASE_URL}/order/place`,
-        getOrders: `${ApiEndpoints.BASE_URL}/order/orders`,
-        changeStatus: `${ApiEndpoints.BASE_URL}/order/change-status`,
-        giveReview: `${ApiEndpoints.BASE_URL}/order/give-review`,
-        getReviews: `${ApiEndpoints.BASE_URL}/order/reviews`,
-    };
 }

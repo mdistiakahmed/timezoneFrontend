@@ -25,7 +25,7 @@ const EmailInputField = ({
     setValue,
     error,
     setError,
-    isDisabled = true,
+    isDisabled = false,
 }: EmailInputFieldProps) => {
     const handleChange = (event: any) => {
         const val = event.target.value;

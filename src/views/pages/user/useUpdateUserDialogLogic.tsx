@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react';
 import { ApplicationContext } from '../../../context/AppContext';
 import { UserDataContext } from '../../../context/UserDataContext';
 import { AppReducerActionKind } from '../../../hooks/useAppReducer';
-import { SignupFormErrors } from '../signup/useSignupLogic';
 import { UpdateUserDialogProps } from './UpdateUserDialog';
 
 const useUpdateUserDialogLogic = ({
@@ -14,7 +13,7 @@ const useUpdateUserDialogLogic = ({
     const [email, setEmail] = useState<string>('');
     const [currentRole, setCurrentRole] = useState<string>('');
     //Errors
-    const [errors, setErrors] = useState<SignupFormErrors>({});
+    const [errors, setErrors] = useState<any>({});
 
     const { updateData } = useContext(UserDataContext);
     const { dispatch } = useContext(ApplicationContext);

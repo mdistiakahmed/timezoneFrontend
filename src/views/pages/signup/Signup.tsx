@@ -1,16 +1,17 @@
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { FormInputText } from '../../forms/FormInputText';
 import Container from '@mui/material/Container';
-import useSignupLogic from './useSignupLogic';
-import LoadingButton from '@mui/lab/LoadingButton';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import LoginIcon from '@mui/icons-material/Login';
+import LoadingButton from '@mui/lab/LoadingButton';
+import { Link } from '@mui/material';
+import useSignupLogic from './useSignupLogic';
 
 const Signup = () => {
-    const { handleSubmit, errors, handleChange, busy } = useSignupLogic();
+    const { handleSubmit, control, handleSignUpFormSubmit, busy } =
+        useSignupLogic();
 
     return (
         <Container component="main" maxWidth="xs">
@@ -30,58 +31,34 @@ const Signup = () => {
                     component="form"
                     noValidate
                     sx={{ mt: 3 }}
-                    onSubmit={handleSubmit}
+                    onSubmit={handleSubmit(handleSignUpFormSubmit)}
                     id="signupForm"
                 >
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <TextField
-                                error={
-                                    errors.emailError !== undefined &&
-                                    errors.emailError.length > 0
-                                }
-                                helperText={errors.emailError}
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
+                            <FormInputText
                                 name="email"
-                                autoComplete="email"
-                                onChange={handleChange}
+                                control={control}
+                                label="Email"
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
-                                error={
-                                    errors.passwordError !== undefined &&
-                                    errors.passwordError.length > 0
-                                }
-                                helperText={errors.passwordError}
-                                required
-                                fullWidth
+                            <FormInputText
                                 name="password"
+                                control={control}
                                 label="Password"
                                 type="password"
-                                id="password"
-                                autoComplete="new-password"
-                                onChange={handleChange}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
-                                error={
-                                    errors.confirmPasswordError !== undefined &&
-                                    errors.confirmPasswordError.length > 0
-                                }
-                                helperText={errors.confirmPasswordError}
-                                required
-                                fullWidth
-                                name="confirmpassword"
+                            <FormInputText
+                                name="confirmPassword"
+                                control={control}
                                 label="Confirm Password"
                                 type="password"
-                                id="confirmpassword"
-                                autoComplete="new-password"
-                                onChange={handleChange}
+                                required={true}
                             />
                         </Grid>
                     </Grid>
