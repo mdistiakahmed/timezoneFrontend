@@ -1,3 +1,9 @@
+import { AlertColor } from '@mui/material';
+
+// export enum AlertSeverity {
+//     ERROR = AlertColor.ERROR,
+// }
+
 export enum UserRoles {
     USER = 'User',
     ADMIN = 'Admin',
@@ -17,7 +23,3 @@ export class PageLimit {
 
 // ['User','Admin']
 export const UserRoleArray = Object.values(UserRoles);
-
-
-
-  

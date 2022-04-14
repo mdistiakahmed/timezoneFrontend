@@ -23,13 +23,15 @@ const StyledTableCell = styled(TableCell)(() => ({
 }));
 
 const UserTable = () => {
-    const { userTableData, loadData, setPageNumber } =
-        useContext(UserDataContext);
+    const {
+        userTableData,
+        loadData: loadUserData,
+        setPageNumber,
+    } = useContext(UserDataContext);
     const { userData, pageNumber, pageSize, totalElements } = userTableData;
 
     useEffect(() => {
-        loadData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        loadUserData();
     }, []);
 
     const onChangePage = (event: any, page: number) => {

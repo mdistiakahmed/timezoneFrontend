@@ -14,6 +14,7 @@ import Avatar from '@mui/material/Avatar';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ApplicationContext } from '../../context/AppContext';
 import { AppReducerActionKind } from '../../hooks/useAppReducer';
+import { menuTransformStyle } from './TopbarStyles';
 
 const MenuOptions = [
     { name: 'Home', value: '/' },
@@ -52,7 +53,6 @@ const Topbar = () => {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    {/* when screen is less then medium  */}
                     <Typography
                         variant="h6"
                         noWrap
@@ -118,7 +118,6 @@ const Topbar = () => {
                             })}
                         </Menu>
                     </Box>
-                    {/* when screen is greater then medium  */}
                     <Typography
                         color="common.white"
                         variant="h6"
@@ -183,10 +182,7 @@ const Topbar = () => {
                                 horizontal: 'right',
                             }}
                             keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
+                            transformOrigin={menuTransformStyle}
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >

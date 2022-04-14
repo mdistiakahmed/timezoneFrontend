@@ -1,7 +1,6 @@
 import { AlertColor } from '@mui/material';
 import { useReducer } from 'react';
 
-// An enum with all the types of actions to use in our reducer
 export enum AppReducerActionKind {
     SET_ALERT,
     SET_TOKEN,
@@ -9,16 +8,14 @@ export enum AppReducerActionKind {
     ALERT,
 }
 
-// An interface for our actions
 export type AppReducerAction = {
     type: AppReducerActionKind;
     payload?: any;
 };
 
-// An interface for our state
 export type AppState = {
     alert: AlertType;
-    token: {value: string};
+    token: { value: string };
 };
 
 type AlertType = {
@@ -28,7 +25,7 @@ type AlertType = {
 
 const initialState: AppState = {
     alert: { msg: '' },
-    token: {value: ''},
+    token: { value: '' },
 };
 
 const appReducerFunction = (state: AppState, action: AppReducerAction) => {
@@ -37,19 +34,19 @@ const appReducerFunction = (state: AppState, action: AppReducerAction) => {
         case AppReducerActionKind.ALERT:
             return {
                 ...state,
-                alert: payload ?? { msg: 'Unknown Error' },
+                alert: payload ?? { msg: '' },
             };
         case AppReducerActionKind.SET_TOKEN:
             localStorage.setItem('AUTH_TOKEN', payload ?? '');
             return {
                 ...state,
-                token: {value: payload ?? ''},
+                token: { value: payload ?? '' },
             };
         case AppReducerActionKind.REMOVE_TOKEN:
             localStorage.removeItem('AUTH_TOKEN');
             return {
                 ...state,
-                token: {value: ''},
+                token: { value: '' },
             };
         default:
             console.error('No reducer found for action: ', action);

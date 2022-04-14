@@ -1,14 +1,13 @@
 export class ApiEndpoints {
     static auth = {
-        signIn: `/api/signin`,
-        signUp: `/api/signup`,
+        signIn: `/api/sign-in`,
+        signUp: `/api/sign-up`,
     };
 
     static user = {
         getUsers: '/api/users',
         createUser: '/api/users',
-        deleteUser: (username:string)=> `/api/users/${username}`,
-        updateUser: '/api/users'
+        deleteUser: (username: string) => `/api/user/${username}`,
+        updateUser: '/api/user',
     };
-
 }

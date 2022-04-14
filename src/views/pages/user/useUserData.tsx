@@ -89,3 +89,35 @@ const useUserLogic = () => {
 };
 
 export default useUserLogic;
+
+// Component -> depends on data. user, auth
+
+// Make a client for each data. useUserApiClient, useAuthApiClient
+
+// useUserData , useAuthData -> useAxiosClient(loading state + error handling)
+
+// useUserData -> some functions like getUserData, deleteUserData
+
+// getUserData -> calls useApiClient -> return -> {success ,data} / {isError ,error}
+
+// handle the data processing inside getUserData
+
+// const useApiClient = () => {
+//     const handleError = (error: error) => {
+//         // handle this error here -> show toast
+//     };
+//     const axiosClient = AxiosClient(handleError);
+// };
+
+// const useLogging = () => {
+//     const handleError = (error: error) => {
+//         // log the error here
+//     };
+//     const axiosClient = AxiosClient(handleError);
+// };
+
+// const AxiosClient = (handleError) => {
+//     interceptor (error) {
+//         handleError(error)
+//     }
+// }

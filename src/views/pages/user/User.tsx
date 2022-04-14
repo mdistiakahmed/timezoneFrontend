@@ -1,6 +1,6 @@
 import Topbar from '../../common-components/Topbar';
 import UserTable from './Table/UserTable';
-import useUserLogic from './useUserLogic';
+import useUserLogic from './useUserData';
 
 import { UserRoles } from '../../../constants/GeneralConstants';
 import { UserDataContext } from '../../../context/UserDataContext';

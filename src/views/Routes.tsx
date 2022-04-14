@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import Home from './pages/home/Home';
 import ServerDownPage from './pages/misc/ServerDownPage';
-import Signin from './pages/signin/Signin';
+import Signin from './pages/signin';
 import Signup from './pages/signup/Signup';
 import User from './pages/user/User';
 
@@ -38,9 +38,10 @@ export default function RoutesHandler() {
                     />
                 }
             />
-            <Route path="/signin" element={<Signin />} />
-            <Route path="signup" element={<Signup />} />
-            <Route path="server-down" element={<ServerDownPage />} />
+            <Route path="/sign-in" element={<Signin />} />
+            <Route path="sign-up" element={<Signup />} />
+            {/* <Route path="server-down" element={<ServerDownPage />} /> */}
+            <Route path="*" element={<div>Not found</div>} />
         </Routes>
     );
 }
