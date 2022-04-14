@@ -10,7 +10,7 @@ import ConfirmationModal from '../../common-components/ConfirmationModal';
 import { UserDataContext } from '../../../context/UserDataContext';
 import { ApplicationContext } from '../../../context/AppContext';
 import { AppReducerActionKind } from '../../../hooks/useAppReducer';
-import UpdateUserDialog from './UpdateUserDialog';
+import UserUpdateDialog from './Modals/UpdateModal/UserUpdateDialog';
 
 const UserTableRow = ({ email, role }: UserData): JSX.Element => {
     const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
@@ -64,11 +64,9 @@ const UserTableRow = ({ email, role }: UserData): JSX.Element => {
                     </Grid>
                 </Grid>
             </TableCell>
-            <UpdateUserDialog
-                open={editDialogOpen}
-                onCancel={() => setEditDialogOpen(false)}
-                userData={{ email: email, role: role }}
-            />
+
+            <UserUpdateDialog isOpen={editDialogOpen} onCancel={()=>setEditDialogOpen(false)} 
+            defaultValues={{username: email, role: role}}/>
 
             <ConfirmationModal
                 open={deleteConfirmationOpen}
