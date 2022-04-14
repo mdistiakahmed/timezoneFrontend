@@ -7,9 +7,7 @@ import Grid from '@mui/material/Grid';
 import { FormInputText } from '../../../../forms/FormInputText';
 import Box from '@mui/material/Box';
 import FormInputDropdown from '../../../../forms/FormInputDropdown';
-import {
-    UserRoleArray,
-} from '../../../../../constants/GeneralConstants';
+import { UserRoleArray } from '../../../../../constants/GeneralConstants';
 import useUserUpdateDialogLogic, {
     SinginFormInput,
 } from './useUserUpdateDialogLogic';

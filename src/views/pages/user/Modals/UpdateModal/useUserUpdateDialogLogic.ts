@@ -43,7 +43,7 @@ const useUserUpdateDialogLogic = ({
                 payload: { msg: 'Update Successfull', type: 'success' },
             });
         }
-        onDialogClose();
+        onCancel();
     };
 
     const onDialogClose = () => {

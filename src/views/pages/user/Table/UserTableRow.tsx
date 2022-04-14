@@ -3,14 +3,14 @@ import TableRow from '@mui/material/TableRow';
 import Grid from '@mui/material/Grid';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { UserData } from './User';
+import { UserData } from '../User';
 import { useContext, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
-import ConfirmationModal from '../../common-components/ConfirmationModal';
-import { UserDataContext } from '../../../context/UserDataContext';
-import { ApplicationContext } from '../../../context/AppContext';
-import { AppReducerActionKind } from '../../../hooks/useAppReducer';
-import UserUpdateDialog from './Modals/UpdateModal/UserUpdateDialog';
+import ConfirmationModal from '../../../common-components/ConfirmationModal';
+import { UserDataContext } from '../../../../context/UserDataContext';
+import { ApplicationContext } from '../../../../context/AppContext';
+import { AppReducerActionKind } from '../../../../hooks/useAppReducer';
+import UserUpdateDialog from '../Modals/UpdateModal/UserUpdateDialog';
 
 const UserTableRow = ({ email, role }: UserData): JSX.Element => {
     const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
@@ -65,8 +65,11 @@ const UserTableRow = ({ email, role }: UserData): JSX.Element => {
                 </Grid>
             </TableCell>
 
-            <UserUpdateDialog isOpen={editDialogOpen} onCancel={()=>setEditDialogOpen(false)} 
-            defaultValues={{username: email, role: role}}/>
+            <UserUpdateDialog
+                isOpen={editDialogOpen}
+                onCancel={() => setEditDialogOpen(false)}
+                defaultValues={{ username: email, role: role }}
+            />
 
             <ConfirmationModal
                 open={deleteConfirmationOpen}
