@@ -5,10 +5,19 @@ import useUserLogic from './useUserLogic';
 import { UserRoles } from '../../../constants/GeneralConstants';
 import { UserDataContext } from '../../../context/UserDataContext';
 import AddButton from '../../common-components/AddButton';
+import UserCreateDialog from './Modals/CreateModal/UserCreateDialog';
 
 const User = () => {
-    const { userTableData, loadData, deleteData, updateData, setPageNumber } =
-        useUserLogic();
+    const {
+        userTableData,
+        loadData,
+        deleteData,
+        updateData,
+        createData,
+        setPageNumber,
+        createModalOpen,
+        setCreateModalOpen,
+    } = useUserLogic();
 
     return (
         <UserDataContext.Provider
@@ -17,13 +26,21 @@ const User = () => {
                 loadData,
                 deleteData,
                 updateData,
+                createData,
                 setPageNumber,
             }}
         >
             <div>
                 <Topbar />
                 <UserTable />
-                <AddButton />
+                <AddButton
+                    title="Add New User"
+                    onClick={() => setCreateModalOpen(true)}
+                />
+                <UserCreateDialog
+                    isOpen={createModalOpen}
+                    onCancel={() => setCreateModalOpen(false)}
+                />
             </div>
         </UserDataContext.Provider>
     );

@@ -18,6 +18,7 @@ const useUserLogic = () => {
         pageSize: 0,
         totalElements: 0,
     });
+    const [createModalOpen, setCreateModalOpen] = useState<boolean>(false);
 
     const { dispatch } = useContext(ApplicationContext);
     const userService = UserServiceFunction(dispatch);
@@ -51,6 +52,12 @@ const useUserLogic = () => {
         });
     };
 
+    const createData = async (data: UserDTO) => {
+        userService.createUser(data).then(async (result) => {
+            loadData();
+        });
+    };
+
     const updateData = async (username: string, role: string) => {
         const isSysAdmin = role === 'admin';
         userService
@@ -58,8 +65,6 @@ const useUserLogic = () => {
                 username: username,
                 sysadmin: isSysAdmin,
                 password: 'a',
-                firstname: 'a',
-                lastname: 'b',
             })
             .then(async (result) => {
                 loadData();
@@ -75,8 +80,11 @@ const useUserLogic = () => {
         loadData,
         deleteData,
         updateData,
+        createData,
         setPageNumber,
         userTableData: userTableData,
+        createModalOpen,
+        setCreateModalOpen,
     };
 };
 

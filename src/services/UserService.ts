@@ -11,6 +11,11 @@ const UserServiceFunction = (dispatch: any) => {
       .then(res => Promise.resolve(res.data));
   }
 
+  const createUser = async (data: UserDTO):Promise<any> => {
+    return meAxios.post(ApiEndpoints.user.createUser, data)
+      .then(res => Promise.resolve(res.data));
+  }
+
   const deleteUser = async(username: string): Promise<any> => {
     return meAxios.delete(ApiEndpoints.user.deleteUser(username))
       .then(res => Promise.resolve(res.data));
@@ -26,7 +31,7 @@ const UserServiceFunction = (dispatch: any) => {
   }
 
 
-  return { getAllUsers, deleteUser, updateUser};
+  return { getAllUsers, deleteUser, updateUser, createUser};
 }
 
 export type UserDataResponseModel = {

@@ -3,9 +3,7 @@ import AddButton from '../../common-components/AddButton';
 import AllTimezones from './AllTimezones';
 import AddTimezoneDialog from './AddTimezoneDialog';
 import Topbar from '../../common-components/Topbar';
-import Toast from '../../common-components/Toast';
 import CssBaseline from '@mui/material/CssBaseline';
-import { AlertSeverity } from '../../../constants/GeneralConstants';
 
 const Home = () => {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -13,7 +11,10 @@ const Home = () => {
         <div>
             <Topbar />
             <AllTimezones />
-            <AddButton onClick={() => setModalOpen(true)} />
+            <AddButton
+                onClick={() => setModalOpen(true)}
+                title="Add New Timezone"
+            />
             <AddTimezoneDialog
                 open={modalOpen}
                 onCancel={() => setModalOpen(false)}

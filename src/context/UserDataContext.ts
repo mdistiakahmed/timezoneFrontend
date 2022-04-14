@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+import { UserDTO } from '../utils/DataModel';
 import { UserInterface } from '../views/pages/user/useUserLogic';
 
 export const UserDataContext = createContext<UserDataContextType>({
@@ -6,6 +7,7 @@ export const UserDataContext = createContext<UserDataContextType>({
     loadData: () => {},
     deleteData: () => {},
     updateData: () => {},
+    createData: () => {},
     setPageNumber: ()=>{},
 });
 
@@ -14,5 +16,6 @@ export type UserDataContextType = {
     loadData: () => any;
     deleteData: (username: string) => any;
     updateData: (username:string, role: string) => void;
+    createData: (data: UserDTO) => void;
     setPageNumber: (pageNo: number) => void;
 };

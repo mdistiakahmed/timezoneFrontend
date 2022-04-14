@@ -2,7 +2,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
-const AddButton = ({ onClick }: AddButtonProps): JSX.Element => {
+const AddButton = ({ onClick, title }: AddButtonProps): JSX.Element => {
     return (
         <Tooltip title="Add New TimeZone">
             <IconButton
@@ -26,5 +26,6 @@ const AddButton = ({ onClick }: AddButtonProps): JSX.Element => {
 export default AddButton;
 
 type AddButtonProps = {
-    onClick?: () => void;
+    onClick: () => void;
+    title: string;
 };
