@@ -1,15 +1,36 @@
 import { useContext, useEffect, useState } from 'react';
 import useAuthService from '../../../services/AuthService';
-import { useNavigate } from 'react-router-dom';
 import { ApplicationContext } from '../../../context/AppContext';
-import { AppReducerActionKind } from '../../../hooks/useAppReducer';
+import * as yup from 'yup';
+import { AnyObjectSchema } from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+
+interface SinginFormInput {
+    username: string;
+    password: string;
+}
+
+const defaultValues = {
+    username: '',
+    password: '',
+};
+
+const VALIDATION_SCHEMA: AnyObjectSchema = yup.object({
+    username: yup.string().required('Please enter username'),
+    password: yup.string().required('Please enter password'),
+});
+
 
 const useSigninLogic = () => {
+    const { handleSubmit, control } = useForm<SinginFormInput>({
+        defaultValues: defaultValues,
+        resolver: yupResolver(VALIDATION_SCHEMA),
+    });
+    
     const [busy, setBusy] = useState<boolean>(false);
 
     const { dispatch } = useContext(ApplicationContext);
-
-    const navigate = useNavigate();
     const { signIn } = useAuthService(dispatch);
 
     useEffect(() => {
@@ -19,34 +40,18 @@ const useSigninLogic = () => {
         };
     }, []);
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const inputdata = new FormData(event.currentTarget);
-        const email = '' + inputdata.get('email')?.toString();
-        const password = '' + inputdata.get('password')?.toString();
-        if (email.length === 0 || password.length === 0) {
-            dispatch({
-                type: AppReducerActionKind.ALERT,
-                payload: { msg: 'Username or Password can not be empty' },
-            });
-        } else {
+    const handleSignInFormSubmit = async (data: SinginFormInput) => {
             setBusy(true);
-            signIn({ username: email, password: password })
-                .then(async (res) => {
-                    dispatch({
-                        type: AppReducerActionKind.SET_TOKEN,
-                        payload: res.token ?? '',
-                    });
-                    navigate('/');
-                })
+            signIn({ username: data.username, password: data.password })
                 .finally(() => {
                     setBusy(false);
                 });
-        }
     };
 
     return {
         handleSubmit,
+        control,
+        handleSignInFormSubmit,
         busy,
     };
 };

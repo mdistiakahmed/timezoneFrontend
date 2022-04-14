@@ -1,5 +1,4 @@
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -8,9 +7,11 @@ import Container from '@mui/material/Container';
 import useSigninLogic from './useSigninLogic';
 import LoadingButton from '@mui/lab/LoadingButton';
 import LoginIcon from '@mui/icons-material/Login';
+import { FormInputText } from '../../forms/FormInputText';
 
 const Signin = () => {
-    const { handleSubmit, busy } = useSigninLogic();
+    const { handleSubmit, control, handleSignInFormSubmit, busy } =
+        useSigninLogic();
 
     return (
         <Container component="main" maxWidth="xs">
@@ -31,28 +32,28 @@ const Signin = () => {
                     component="form"
                     noValidate
                     sx={{ mt: 1 }}
-                    onSubmit={handleSubmit}
+                    onSubmit={handleSubmit(handleSignInFormSubmit)}
                 >
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                    />
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                    />
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <FormInputText
+                                name="username"
+                                control={control}
+                                label="User Name"
+                                required={true}
+                                type="email"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormInputText
+                                name="password"
+                                control={control}
+                                label="Password"
+                                type="password"
+                                required={true}
+                            />
+                        </Grid>
+                    </Grid>
 
                     <LoadingButton
                         type="submit"

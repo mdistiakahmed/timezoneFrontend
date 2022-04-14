@@ -41,6 +41,7 @@ const Signup = () => {
                                 control={control}
                                 label="Email"
                                 required={true}
+                                type="email"
                             />
                         </Grid>
                         <Grid item xs={12}>

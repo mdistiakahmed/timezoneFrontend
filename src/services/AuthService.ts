@@ -22,7 +22,13 @@ const useAuthService = (dispatch: any) => {
     const signIn = async (data: UserDTO): Promise<any> => {
         return meAxios
             .post(ApiEndpoints.auth.signIn, data)
-            .then((res) => Promise.resolve(res.data));
+            .then((res) => {
+                dispatch({
+                    type: AppReducerActionKind.SET_TOKEN,
+                    payload: res.data?.token ?? '',
+                });
+                navigate('/');
+            });
     };
 
     return { signUp, signIn };
