@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import { AnyObjectSchema } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { UserUpdateDialogProps } from './UserUpdateDialog';
+import { UserUpdateDialogProps } from '.';
 import { useContext } from 'react';
 import { UserDataContext } from '../../../../../context/UserDataContext';
 import { ApplicationContext } from '../../../../../context/AppContext';

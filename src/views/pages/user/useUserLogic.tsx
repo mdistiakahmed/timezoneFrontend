@@ -82,7 +82,7 @@ const useUserLogic = () => {
         updateData,
         createData,
         setPageNumber,
-        userTableData: userTableData,
+        userTableData,
         createModalOpen,
         setCreateModalOpen,
     };

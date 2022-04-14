@@ -9,6 +9,8 @@ export const UserDataContext = createContext<UserDataContextType>({
     updateData: () => {},
     createData: () => {},
     setPageNumber: ()=>{},
+    createModalOpen: false,
+    setCreateModalOpen: () => {}
 });
 
 export type UserDataContextType = {
@@ -18,4 +20,6 @@ export type UserDataContextType = {
     updateData: (username:string, role: string) => void;
     createData: (data: UserDTO) => void;
     setPageNumber: (pageNo: number) => void;
+    createModalOpen: boolean;
+    setCreateModalOpen: any;
 };

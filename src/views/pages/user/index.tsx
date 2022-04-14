@@ -5,41 +5,23 @@ import useUserLogic from './useUserLogic';
 import { UserRoles } from '../../../constants/GeneralConstants';
 import { UserDataContext } from '../../../context/UserDataContext';
 import AddButton from '../../common-components/AddButton';
-import UserCreateDialog from './Modals/CreateModal/UserCreateDialog';
+import UserCreateDialog from './Modals/CreateModal';
 
 const User = () => {
-    const {
-        userTableData,
-        loadData,
-        deleteData,
-        updateData,
-        createData,
-        setPageNumber,
-        createModalOpen,
-        setCreateModalOpen,
-    } = useUserLogic();
+    const userLogic = useUserLogic();
 
     return (
-        <UserDataContext.Provider
-            value={{
-                userTableData,
-                loadData,
-                deleteData,
-                updateData,
-                createData,
-                setPageNumber,
-            }}
-        >
+        <UserDataContext.Provider value={userLogic}>
             <div>
                 <Topbar />
                 <UserTable />
                 <AddButton
                     title="Add New User"
-                    onClick={() => setCreateModalOpen(true)}
+                    onClick={() => userLogic.setCreateModalOpen(true)}
                 />
                 <UserCreateDialog
-                    isOpen={createModalOpen}
-                    onCancel={() => setCreateModalOpen(false)}
+                    isOpen={userLogic.createModalOpen}
+                    onCancel={() => userLogic.setCreateModalOpen(false)}
                 />
             </div>
         </UserDataContext.Provider>

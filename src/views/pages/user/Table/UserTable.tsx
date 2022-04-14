@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import TablePagination from '@mui/material/TablePagination';
 import { styled } from '@mui/material/styles';
 import { UserRoles } from '../../../../constants/GeneralConstants';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { UserDataContext } from '../../../../context/UserDataContext';
 import UserTableRow from './UserTableRow';
 
@@ -23,14 +23,8 @@ const StyledTableCell = styled(TableCell)(() => ({
 }));
 
 const UserTable = () => {
-    const { userTableData, loadData, setPageNumber } =
-        useContext(UserDataContext);
+    const { userTableData, setPageNumber } = useContext(UserDataContext);
     const { userData, pageNumber, pageSize, totalElements } = userTableData;
-
-    useEffect(() => {
-        loadData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     const onChangePage = (event: any, page: number) => {
         setPageNumber(page);

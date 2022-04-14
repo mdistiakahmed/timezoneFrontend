@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import { AnyObjectSchema } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { UserCreateDialogProps } from './UserCreateDialog';
+import { UserCreateDialogProps } from '.';
 import { useContext } from 'react';
 import { UserDataContext } from '../../../../../context/UserDataContext';
 import { ApplicationContext } from '../../../../../context/AppContext';
@@ -52,7 +52,7 @@ const useUserCreateDialogLogic = ({
                 payload: { msg: 'User Created', type: 'success' },
             });
         }
-        onCancel();
+        onDialogClose();
     };
 
     const onDialogClose = () => {
