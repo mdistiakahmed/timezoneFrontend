@@ -1,8 +1,6 @@
 import Topbar from '../../common-components/Topbar';
 import UserTable from './Table/UserTable';
 import useUserLogic from './useUserLogic';
-
-import { UserRoles } from '../../../constants/GeneralConstants';
 import { UserDataContext } from '../../../context/UserDataContext';
 import AddButton from '../../common-components/AddButton';
 import UserCreateDialog from './Modals/CreateModal';
@@ -29,9 +27,3 @@ const User = () => {
 };
 
 export default User;
-
-export type UserData = {
-    email: string;
-    password?: string;
-    role: UserRoles;
-};

@@ -8,9 +8,8 @@ import { FormInputText } from '../../../../forms/FormInputText';
 import Box from '@mui/material/Box';
 import FormInputDropdown from '../../../../forms/FormInputDropdown';
 import { UserRoleArray } from '../../../../../constants/GeneralConstants';
-import useUserUpdateDialogLogic, {
-    SinginFormInput,
-} from './useUserUpdateDialogLogic';
+import useUserUpdateDialogLogic from './useUserUpdateDialogLogic';
+import { UserUpdateModalInput } from '../../../../../constants/DataModel';
 
 const UserUpdateDialog = ({
     isOpen,
@@ -71,5 +70,5 @@ export default UserUpdateDialog;
 export type UserUpdateDialogProps = {
     isOpen: boolean;
     onCancel: any;
-    defaultValues: SinginFormInput;
+    defaultValues: UserUpdateModalInput;
 };

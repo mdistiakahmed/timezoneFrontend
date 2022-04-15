@@ -17,7 +17,3 @@ export class PageLimit {
 
 // ['User','Admin']
 export const UserRoleArray = Object.values(UserRoles);
-
-
-
-  

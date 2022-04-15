@@ -21,13 +21,12 @@ const VALIDATION_SCHEMA: AnyObjectSchema = yup.object({
     password: yup.string().required('Please enter password'),
 });
 
-
 const useSigninLogic = () => {
     const { handleSubmit, control } = useForm<SinginFormInput>({
         defaultValues: defaultValues,
         resolver: yupResolver(VALIDATION_SCHEMA),
     });
-    
+
     const [busy, setBusy] = useState<boolean>(false);
 
     const { dispatch } = useContext(ApplicationContext);
@@ -41,11 +40,12 @@ const useSigninLogic = () => {
     }, []);
 
     const handleSignInFormSubmit = async (data: SinginFormInput) => {
-            setBusy(true);
-            signIn({ username: data.username, password: data.password })
-                .finally(() => {
-                    setBusy(false);
-                });
+        setBusy(true);
+        signIn({ username: data.username, password: data.password }).finally(
+            () => {
+                setBusy(false);
+            },
+        );
     };
 
     return {

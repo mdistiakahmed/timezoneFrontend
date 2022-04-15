@@ -7,8 +7,12 @@ export class ApiEndpoints {
     static user = {
         getUsers: '/api/users',
         createUser: '/api/users',
-        deleteUser: (username:string)=> `/api/users/${username}`,
-        updateUser: '/api/users'
+        deleteUser: (username: string) => `/api/users/${username}`,
+        updateUser: '/api/users',
     };
-
 }
+
+export const URLsWithoutAuthorization = [
+    ApiEndpoints.auth.signIn,
+    ApiEndpoints.auth.signUp,
+];

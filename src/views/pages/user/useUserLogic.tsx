@@ -1,15 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
-import UserServiceFunction from '../../../services/UserService';
-import { UserDTO } from '../../../utils/DataModel';
-import { ApplicationContext } from '../../../context/AppContext';
+import { useEffect, useState } from 'react';
+import { UserDTO, UserInterface } from '../../../constants/DataModel';
+import useUserService from '../../../services/useUserService';
 //import { PageLimit } from '../../../constants/GeneralConstants';
-
-export interface UserInterface {
-    userData: UserDTO[];
-    pageNumber: number;
-    pageSize: number;
-    totalElements: number;
-}
 
 const useUserLogic = () => {
     const [userTableData, setUserTableData] = useState<UserInterface>({
@@ -19,9 +11,7 @@ const useUserLogic = () => {
         totalElements: 0,
     });
     const [createModalOpen, setCreateModalOpen] = useState<boolean>(false);
-
-    const { dispatch } = useContext(ApplicationContext);
-    const userService = UserServiceFunction(dispatch);
+    const userService = useUserService();
 
     const setPageNumber = (pageNo: number) => {
         setUserTableData({
