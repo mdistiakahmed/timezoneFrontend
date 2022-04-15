@@ -23,8 +23,9 @@ const useUserLogic = () => {
     const loadData = async () => {
         // set loader state = true
         userService
-            .getAllUsers(userTableData.pageNumber, 10) //PageLimit.USER_PAGE_LIMIT
+            .getAllUsers(userTableData.pageNumber, 2) //PageLimit.USER_PAGE_LIMIT
             .then((res) => {
+                console.log(res);
                 setUserTableData({
                     ...userTableData,
                     userData: res.userList,

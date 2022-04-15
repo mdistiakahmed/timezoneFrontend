@@ -4,7 +4,7 @@ export const useApiHandler = (dispatch: any) => {
     const { api } = HttpClient(dispatch);
 
     const _get = async (url: string, param: any): Promise<any> => {
-        const res = await api.get(url, { params: { ...param } });
+        const res = await api.get(url, { ...param });
         return await Promise.resolve(res.data);
     };
 
