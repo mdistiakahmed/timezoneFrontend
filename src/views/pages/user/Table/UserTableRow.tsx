@@ -9,7 +9,7 @@ import ConfirmationModal from '../../../common-components/ConfirmationModal';
 import { UserDataContext } from '../../../../context/UserDataContext';
 import { ApplicationContext } from '../../../../context/AppContext';
 import { AppReducerActionKind } from '../../../../hooks/useAppReducer';
-import UserUpdateDialog from '../Modals/UpdateModal';
+import UserUpdateDialog from '../Modals/UserUpdateModal';
 import { UserData } from '../../../../constants/DataModel';
 
 const UserTableRow = ({ email, role }: UserData): JSX.Element => {

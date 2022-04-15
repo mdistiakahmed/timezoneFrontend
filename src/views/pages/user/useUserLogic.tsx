@@ -25,7 +25,6 @@ const useUserLogic = () => {
         userService
             .getAllUsers(userTableData.pageNumber, 2) //PageLimit.USER_PAGE_LIMIT
             .then((res) => {
-                console.log(res);
                 setUserTableData({
                     ...userTableData,
                     userData: res.userList,

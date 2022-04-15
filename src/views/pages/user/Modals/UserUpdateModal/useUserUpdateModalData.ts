@@ -1,18 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { UserUpdateDialogProps } from '.';
 import { useContext } from 'react';
 import { UserDataContext } from '../../../../../context/UserDataContext';
 import { ApplicationContext } from '../../../../../context/AppContext';
 import { AppReducerActionKind } from '../../../../../hooks/useAppReducer';
 import { UserUpdateModalInput } from '../../../../../constants/DataModel';
 import { YUP_USER_UPDATE_VALIDATION_SCHEMA } from './yupUserUpdateModalSchema';
+import { UserUpdateModalProps } from '.';
 
-const useUserUpdateDialogLogic = ({
+const useUserUpdateModalData = ({
     isOpen,
     onCancel,
     defaultValues,
-}: UserUpdateDialogProps) => {
+}: UserUpdateModalProps) => {
     const { handleSubmit, control, reset } = useForm<UserUpdateModalInput>({
         defaultValues: defaultValues,
         resolver: yupResolver(YUP_USER_UPDATE_VALIDATION_SCHEMA),
@@ -49,4 +49,4 @@ const useUserUpdateDialogLogic = ({
     };
 };
 
-export default useUserUpdateDialogLogic;
+export default useUserUpdateModalData;

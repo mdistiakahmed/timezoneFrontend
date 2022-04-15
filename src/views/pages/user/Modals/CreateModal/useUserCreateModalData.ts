@@ -1,6 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { UserCreateDialogProps } from '.';
 import { useContext } from 'react';
 import { UserDataContext } from '../../../../../context/UserDataContext';
 import { ApplicationContext } from '../../../../../context/AppContext';
@@ -8,6 +7,7 @@ import { AppReducerActionKind } from '../../../../../hooks/useAppReducer';
 import { UserRoles } from '../../../../../constants/GeneralConstants';
 import { SinginFormInput } from '../../../../../constants/DataModel';
 import { YUP_USER_CREATE_VALIDATION_SCHEMA } from './yupUserCreateValidationSchema';
+import { UserCreateModalProps } from '.';
 
 const defaultValues = {
     email: '',
@@ -15,10 +15,7 @@ const defaultValues = {
     role: '',
 };
 
-const useUserCreateDialogLogic = ({
-    isOpen,
-    onCancel,
-}: UserCreateDialogProps) => {
+const useUserCreateModalData = ({ isOpen, onCancel }: UserCreateModalProps) => {
     const { handleSubmit, control, reset } = useForm<SinginFormInput>({
         defaultValues: defaultValues,
         resolver: yupResolver(YUP_USER_CREATE_VALIDATION_SCHEMA),
@@ -60,4 +57,4 @@ const useUserCreateDialogLogic = ({
     };
 };
 
-export default useUserCreateDialogLogic;
+export default useUserCreateModalData;

@@ -4,16 +4,22 @@ import { FormInputText } from '../../../../forms/FormInputText';
 import Box from '@mui/material/Box';
 import FormInputDropdown from '../../../../forms/FormInputDropdown';
 import { UserRoleArray } from '../../../../../constants/GeneralConstants';
-import useUserUpdateDialogLogic from './useUserCreateModalData';
+import useUserUpdateDialogLogic from './useUserUpdateModalData';
+import { UserUpdateModalInput } from '../../../../../constants/DataModel';
 import Modal from '../../../../common-components/Modal';
 
-const UserCreateDialog = ({ isOpen, onCancel }: UserCreateModalProps) => {
+const UserUpdateDialog = ({
+    isOpen,
+    onCancel,
+    defaultValues,
+}: UserUpdateModalProps) => {
     const { handleSubmit, control, onDialogClose, onSubmitDialog } =
         useUserUpdateDialogLogic({
             isOpen,
             onCancel,
+            defaultValues,
         });
-    const title = 'Add User';
+    const title = 'Edit User Information';
 
     const body = () => {
         return (
@@ -29,20 +35,11 @@ const UserCreateDialog = ({ isOpen, onCancel }: UserCreateModalProps) => {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <FormInputText
-                            name="email"
+                            name="username"
                             control={control}
-                            label="Email"
-                            required={true}
+                            label="User Name"
                             type="email"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormInputText
-                            name="password"
-                            control={control}
-                            label="Password"
-                            type="password"
-                            required={true}
+                            disabled={true}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -51,7 +48,6 @@ const UserCreateDialog = ({ isOpen, onCancel }: UserCreateModalProps) => {
                             control={control}
                             label="Role"
                             dropDownOptions={UserRoleArray}
-                            isRequired={true}
                         />
                     </Grid>
                 </Grid>
@@ -63,7 +59,7 @@ const UserCreateDialog = ({ isOpen, onCancel }: UserCreateModalProps) => {
         return (
             <div>
                 <Button onClick={onDialogClose}> Cancel </Button>
-                <Button onClick={handleSubmit(onSubmitDialog)}>Add</Button>
+                <Button onClick={handleSubmit(onSubmitDialog)}>Update</Button>
             </div>
         );
     };
@@ -79,9 +75,10 @@ const UserCreateDialog = ({ isOpen, onCancel }: UserCreateModalProps) => {
     );
 };
 
-export default UserCreateDialog;
+export default UserUpdateDialog;
 
-export type UserCreateModalProps = {
+export type UserUpdateModalProps = {
     isOpen: boolean;
     onCancel: any;
+    defaultValues: UserUpdateModalInput;
 };
