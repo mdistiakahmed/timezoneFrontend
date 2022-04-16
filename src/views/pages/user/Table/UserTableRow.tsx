@@ -7,8 +7,6 @@ import { useContext, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import ConfirmationModal from '../../../common-components/ConfirmationModal';
 import { UserDataContext } from '../../../../context/UserDataContext';
-import { ApplicationContext } from '../../../../context/AppContext';
-import { AppReducerActionKind } from '../../../../hooks/useAppReducer';
 import UserUpdateDialog from '../Modals/UserUpdateModal';
 import { UserData } from '../../../../constants/DataModel';
 
@@ -17,15 +15,9 @@ const UserTableRow = ({ email, role }: UserData): JSX.Element => {
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] =
         useState<boolean>(false);
     const { deleteData } = useContext(UserDataContext);
-    const { dispatch } = useContext(ApplicationContext);
 
     const onDeleteConfirm = async () => {
-        setDeleteConfirmationOpen(false);
-        await deleteData(email);
-        dispatch({
-            type: AppReducerActionKind.ALERT,
-            payload: { msg: 'Delete Successfull', type: 'success' },
-        });
+        deleteData(email).then(() => setDeleteConfirmationOpen(false));
     };
 
     return (

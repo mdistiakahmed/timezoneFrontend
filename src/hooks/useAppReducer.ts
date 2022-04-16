@@ -6,7 +6,7 @@ export enum AppReducerActionKind {
     SET_ALERT,
     SET_TOKEN,
     REMOVE_TOKEN,
-    ALERT,
+    SET_LOADER,
 }
 
 // An interface for our actions
@@ -19,6 +19,7 @@ export type AppReducerAction = {
 export type AppState = {
     alert: AlertType;
     token: { value: string };
+    isLoading: boolean;
 };
 
 type AlertType = {
@@ -29,12 +30,13 @@ type AlertType = {
 const initialState: AppState = {
     alert: { msg: '' },
     token: { value: '' },
+    isLoading: false,
 };
 
 const appReducerFunction = (state: AppState, action: AppReducerAction) => {
     const { type, payload } = action;
     switch (type) {
-        case AppReducerActionKind.ALERT:
+        case AppReducerActionKind.SET_ALERT:
             return {
                 ...state,
                 alert: payload ?? { msg: 'Unknown Error' },
@@ -50,6 +52,11 @@ const appReducerFunction = (state: AppState, action: AppReducerAction) => {
             return {
                 ...state,
                 token: { value: '' },
+            };
+        case AppReducerActionKind.SET_LOADER:
+            return {
+                ...state,
+                isLoading: payload,
             };
         default:
             console.error('No reducer found for action: ', action);

@@ -4,6 +4,7 @@ import { useAppReducer } from '../hooks/useAppReducer';
 import { ApplicationContext } from '../context/AppContext';
 import ToastAlert from './pages/ToastAlert';
 import { useApiHandler } from '../hooks/useApiHandler';
+import Loader from './pages/Loader';
 
 function App() {
     const { state, dispatch } = useAppReducer();
@@ -13,6 +14,7 @@ function App() {
             <div className="App">
                 <RoutesHandler />
                 <ToastAlert />
+                <Loader />
             </div>
         </ApplicationContext.Provider>
     );

@@ -20,7 +20,7 @@ const useUserLogic = () => {
         });
     };
 
-    const loadData = async () => {
+    const loadData = async (): Promise<any> => {
         // set loader state = true
         userService
             .getAllUsers(userTableData.pageNumber, 2) //PageLimit.USER_PAGE_LIMIT
@@ -32,32 +32,38 @@ const useUserLogic = () => {
                     pageNumber: res.pageNo,
                     totalElements: res.totalElements,
                 });
+                return Promise.resolve(res);
             });
     };
 
-    // make seperate :  make delete and deleteAndLoad method
-    const deleteData = async (username: string) => {
-        userService.deleteUser(username).then(async (result) => {
-            loadData();
+    const deleteData = async (username: string): Promise<any> => {
+        return userService.deleteUser(username).then(async (result) => {
+            return loadData();
         });
     };
 
-    const createData = async (data: UserDTO) => {
-        userService.createUser(data).then(async (result) => {
-            loadData();
-        });
+    const createData = async (data: UserDTO): Promise<any> => {
+        return userService
+            .createUser(data)
+            .then(async (result) => {
+                loadData();
+                return Promise.resolve();
+            })
+            .catch((err) => {
+                return Promise.reject(err);
+            });
     };
 
-    const updateData = async (username: string, role: string) => {
+    const updateData = async (username: string, role: string): Promise<any> => {
         const isSysAdmin = role === 'admin';
-        userService
+        return userService
             .updateUser({
                 username: username,
                 sysadmin: isSysAdmin,
                 password: 'a',
             })
             .then(async (result) => {
-                loadData();
+                return loadData();
             });
     };
 

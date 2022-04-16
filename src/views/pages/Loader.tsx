@@ -1,5 +1,7 @@
 import { CircularProgress } from '@mui/material';
 import CSS from 'csstype';
+import { useContext } from 'react';
+import { ApplicationContext } from '../../context/AppContext';
 
 const divStyles: CSS.Properties = {
     backgroundColor: '#251a1a99',
@@ -15,7 +17,9 @@ const divStyles: CSS.Properties = {
     zIndex: 200000,
 };
 
-const Loader = ({ isLoading }: LoaderProps) => {
+const Loader = () => {
+    const { state } = useContext(ApplicationContext);
+    const isLoading = state.isLoading;
     if (!isLoading) {
         return null;
     }
@@ -27,7 +31,3 @@ const Loader = ({ isLoading }: LoaderProps) => {
 };
 
 export default Loader;
-
-type LoaderProps = {
-    isLoading: boolean;
-};

@@ -13,7 +13,7 @@ type AppContextType = {
 };
 
 const initialValue = {
-    state: { token: { value: '' }, alert: { msg: '' } },
+    state: { token: { value: '' }, alert: { msg: '' }, isLoading: false },
     dispatch: () => {},
     apiHandler: {
         _get: () => {},

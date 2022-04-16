@@ -23,17 +23,13 @@ const useUserUpdateModalData = ({
     const onSubmitDialog = async (data: UserUpdateModalInput) => {
         if (defaultValues.role === data.role) {
             dispatch({
-                type: AppReducerActionKind.ALERT,
+                type: AppReducerActionKind.SET_ALERT,
                 payload: { msg: 'Nothing to update', type: 'warning' },
             });
         } else {
             await updateData(data.username, data.role?.toLocaleLowerCase());
-            dispatch({
-                type: AppReducerActionKind.ALERT,
-                payload: { msg: 'Update Successfull', type: 'success' },
-            });
+            onCancel();
         }
-        onCancel();
     };
 
     const onDialogClose = () => {

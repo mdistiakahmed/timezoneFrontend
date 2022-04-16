@@ -8,10 +8,18 @@ export const UserDataContext = createContext<UserDataContextType>({
         pageSize: 0,
         totalElements: 0,
     },
-    loadData: () => {},
-    deleteData: () => {},
-    updateData: () => {},
-    createData: () => {},
+    loadData: () => {
+        return Promise.resolve();
+    },
+    deleteData: () => {
+        return Promise.resolve();
+    },
+    updateData: () => {
+        return Promise.resolve();
+    },
+    createData: () => {
+        return Promise.resolve();
+    },
     setPageNumber: () => {},
     createModalOpen: false,
     setCreateModalOpen: () => {},
@@ -19,10 +27,10 @@ export const UserDataContext = createContext<UserDataContextType>({
 
 export type UserDataContextType = {
     userTableData: UserInterface;
-    loadData: () => any;
-    deleteData: (username: string) => any;
-    updateData: (username: string, role: string) => void;
-    createData: (data: UserDTO) => void;
+    loadData: () => Promise<any>;
+    deleteData: (username: string) => Promise<any>;
+    updateData: (username: string, role: string) => Promise<any>;
+    createData: (data: UserDTO) => Promise<void>;
     setPageNumber: (pageNo: number) => void;
     createModalOpen: boolean;
     setCreateModalOpen: any;

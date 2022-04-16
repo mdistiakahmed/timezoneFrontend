@@ -3,7 +3,7 @@ import UserTable from './Table/UserTable';
 import useUserLogic from './useUserLogic';
 import { UserDataContext } from '../../../context/UserDataContext';
 import AddButton from '../../common-components/AddButton';
-import UserCreateDialog from './Modals/CreateModal';
+import UserCreateDialog from './Modals/UserCreateModal';
 
 const User = () => {
     const userLogic = useUserLogic();

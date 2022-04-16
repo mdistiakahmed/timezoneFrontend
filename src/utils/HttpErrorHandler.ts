@@ -26,7 +26,7 @@ const HttpErrorHandler = (error: any, dispatch: any) => {
             'Something went wrong. Try agian. Details: ' + error.message;
     }
     dispatch({
-        type: AppReducerActionKind.ALERT,
+        type: AppReducerActionKind.SET_ALERT,
         payload: { msg: errorMessage },
     });
 };
