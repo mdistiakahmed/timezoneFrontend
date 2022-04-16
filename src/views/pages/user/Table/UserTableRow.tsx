@@ -7,10 +7,10 @@ import { useContext, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import { UserDataContext } from '../../../../context/UserDataContext';
 import UserUpdateModal from '../Modals/UserUpdateModal';
-import { UserData } from '../../../../constants/DataModel';
 import UserDeleteModal from '../Modals/UserDeleteModal';
+import { UserRoles } from '../../../../constants/GeneralConstants';
 
-const UserTableRow = ({ email, role }: UserData): JSX.Element => {
+const UserTableRow = ({ email, role }: UserTableRowProps): JSX.Element => {
     const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] =
         useState<boolean>(false);
@@ -60,7 +60,7 @@ const UserTableRow = ({ email, role }: UserData): JSX.Element => {
             <UserUpdateModal
                 isOpen={editDialogOpen}
                 onCancel={() => setEditDialogOpen(false)}
-                defaultValues={{ username: email, role: role }}
+                defaultValues={{ email: email, role: role }}
             />
 
             <UserDeleteModal
@@ -75,3 +75,8 @@ const UserTableRow = ({ email, role }: UserData): JSX.Element => {
 };
 
 export default UserTableRow;
+
+export type UserTableRowProps = {
+    email: string;
+    role: UserRoles;
+};

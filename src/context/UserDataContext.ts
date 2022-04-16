@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { UserDTO, UserInterface } from '../constants/DataModel';
+import { UserCreateModel, UserTableData } from '../constants/DataModel';
 
 export const UserDataContext = createContext<UserDataContextType>({
     userTableData: {
@@ -26,11 +26,11 @@ export const UserDataContext = createContext<UserDataContextType>({
 });
 
 export type UserDataContextType = {
-    userTableData: UserInterface;
+    userTableData: UserTableData;
     loadData: () => Promise<any>;
     deleteData: (username: string) => Promise<any>;
     updateData: (username: string, role: string) => Promise<any>;
-    createData: (data: UserDTO) => Promise<void>;
+    createData: (data: UserCreateModel) => Promise<void>;
     setPageNumber: (pageNo: number) => void;
     createModalOpen: boolean;
     setCreateModalOpen: any;

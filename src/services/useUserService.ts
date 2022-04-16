@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { ApiEndpoints } from '../constants/ApiEndpoints';
 import { ApplicationContext } from '../context/AppContext';
-import { UserDTO } from '../constants/DataModel';
+import { UserCreateModel, UserUpdateModel } from '../constants/DataModel';
 import HttpErrorHandler from '../utils/HttpErrorHandler';
 import useUtilService from './useUtilService';
 
@@ -27,7 +27,7 @@ const useUserService = () => {
             });
     };
 
-    const createUser = async (data: UserDTO): Promise<any> => {
+    const createUser = async (data: UserCreateModel): Promise<any> => {
         setLoader(true);
         return apiHandler
             ._post(ApiEndpoints.user.createUser, data)
@@ -60,7 +60,7 @@ const useUserService = () => {
             });
     };
 
-    const updateUser = async (data: UserDTO): Promise<any> => {
+    const updateUser = async (data: UserUpdateModel): Promise<any> => {
         setLoader(true);
         return apiHandler
             ._put(ApiEndpoints.user.updateUser, data)
@@ -86,7 +86,7 @@ export type UserDataResponseModel = {
     pageSize: number;
     totalElements: number;
     totalPages: number;
-    userList: UserDTO[];
+    userList: UserUpdateModel[];
 };
 
 export default useUserService;

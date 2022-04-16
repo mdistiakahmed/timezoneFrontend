@@ -3,9 +3,14 @@ import { useForm } from 'react-hook-form';
 import { useContext } from 'react';
 import { UserDataContext } from '../../../../../context/UserDataContext';
 import { UserRoles } from '../../../../../constants/GeneralConstants';
-import { SinginFormInput } from '../../../../../constants/DataModel';
 import { USER_CREATE_VALIDATION_SCHEMA } from './UserCreateValidationSchema';
 import { UserCreateModalProps } from '.';
+
+type IFUserCreateInput = {
+    email: string;
+    password: string;
+    role: string;
+};
 
 const defaultValues = {
     email: '',
@@ -14,16 +19,16 @@ const defaultValues = {
 };
 
 const useUserCreateModalData = ({ isOpen, onCancel }: UserCreateModalProps) => {
-    const { handleSubmit, control, reset } = useForm<SinginFormInput>({
+    const { handleSubmit, control, reset } = useForm<IFUserCreateInput>({
         defaultValues: defaultValues,
         resolver: yupResolver(USER_CREATE_VALIDATION_SCHEMA),
     });
     const { createData } = useContext(UserDataContext);
 
-    const onSubmitDialog = async (data: SinginFormInput) => {
+    const onSubmitDialog = async (data: IFUserCreateInput) => {
         const isSysAdmin = data.role === UserRoles.ADMIN;
         createData({
-            username: data.email,
+            email: data.email,
             password: data.password,
             sysadmin: isSysAdmin,
         }).then(() => {

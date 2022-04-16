@@ -38,8 +38,9 @@ const useSignUpData = () => {
     const handleSignUpFormSubmit = async (data: IFormInput) => {
         setBusy(true);
         signUp({
-            username: data.email,
+            email: data.email,
             password: data.password,
+            sysadmin: false,
         }).finally(() => {
             setBusy(false);
         });

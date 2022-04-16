@@ -51,8 +51,8 @@ const UserTable = () => {
                     <TableBody>
                         {userData.map((row) => (
                             <UserTableRow
-                                key={row.username}
-                                email={row.username}
+                                key={row.email}
+                                email={row.email}
                                 role={
                                     row.sysadmin
                                         ? UserRoles.ADMIN

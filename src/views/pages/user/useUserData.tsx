@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { UserDTO, UserInterface } from '../../../constants/DataModel';
+import { UserCreateModel, UserTableData } from '../../../constants/DataModel';
 import useUserService from '../../../services/useUserService';
 //import { PageLimit } from '../../../constants/GeneralConstants';
 
 const useUserData = () => {
-    const [userTableData, setUserTableData] = useState<UserInterface>({
+    const [userTableData, setUserTableData] = useState<UserTableData>({
         userData: [],
         pageNumber: 0,
         pageSize: 0,
@@ -42,7 +42,7 @@ const useUserData = () => {
         });
     };
 
-    const createData = async (data: UserDTO): Promise<any> => {
+    const createData = async (data: UserCreateModel): Promise<any> => {
         return userService
             .createUser(data)
             .then(async (result) => {
@@ -54,13 +54,12 @@ const useUserData = () => {
             });
     };
 
-    const updateData = async (username: string, role: string): Promise<any> => {
+    const updateData = async (email: string, role: string): Promise<any> => {
         const isSysAdmin = role === 'admin';
         return userService
             .updateUser({
-                username: username,
+                email: email,
                 sysadmin: isSysAdmin,
-                password: 'a',
             })
             .then(async (result) => {
                 return loadData();

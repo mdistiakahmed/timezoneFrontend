@@ -1,7 +1,7 @@
 export class ApiEndpoints {
     static auth = {
-        signIn: `/v1/signin`,
-        signUp: `/v1/signup`,
+        signIn: `/v1/sign-in`,
+        signUp: `/v1/sign-up`,
     };
 
     static user = {

@@ -4,24 +4,20 @@ import * as yup from 'yup';
 import { AnyObjectSchema } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-
-interface SinginFormInput {
-    username: string;
-    password: string;
-}
+import { UserSignInModel } from '../../../constants/DataModel';
 
 const defaultValues = {
-    username: '',
+    email: '',
     password: '',
 };
 
 const VALIDATION_SCHEMA: AnyObjectSchema = yup.object({
-    username: yup.string().required('Please enter username'),
+    email: yup.string().required('Please enter username'),
     password: yup.string().required('Please enter password'),
 });
 
 const useSignInData = () => {
-    const { handleSubmit, control } = useForm<SinginFormInput>({
+    const { handleSubmit, control } = useForm<UserSignInModel>({
         defaultValues: defaultValues,
         resolver: yupResolver(VALIDATION_SCHEMA),
     });
@@ -36,13 +32,11 @@ const useSignInData = () => {
         };
     }, []);
 
-    const handleSignInFormSubmit = async (data: SinginFormInput) => {
+    const handleSignInFormSubmit = async (data: UserSignInModel) => {
         setBusy(true);
-        signIn({ username: data.username, password: data.password }).finally(
-            () => {
-                setBusy(false);
-            },
-        );
+        signIn(data).finally(() => {
+            setBusy(false);
+        });
     };
 
     return {

@@ -4,8 +4,9 @@ import { FormInputText } from '../../../../forms/FormInputText';
 import Box from '@mui/material/Box';
 import FormInputDropdown from '../../../../forms/FormInputDropdown';
 import { UserRoleArray } from '../../../../../constants/GeneralConstants';
-import useUserUpdateModalData from './useUserUpdateModalData';
-import { UserUpdateModalInput } from '../../../../../constants/DataModel';
+import useUserUpdateModalData, {
+    UserUpdateModalInput,
+} from './useUserUpdateModalData';
 import Modal from '../../../../common-components/Modal';
 import Alert from '@mui/material/Alert';
 
@@ -36,9 +37,9 @@ const UserUpdateModal = ({
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <FormInputText
-                            name="username"
+                            name="email"
                             control={control}
-                            label="User Name"
+                            label="Email"
                             type="email"
                             disabled={true}
                         />

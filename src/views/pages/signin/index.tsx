@@ -37,9 +37,9 @@ const Signin = () => {
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <FormInputText
-                                name="username"
+                                name="email"
                                 control={control}
-                                label="User Name"
+                                label="Email"
                                 required={true}
                                 type="email"
                             />

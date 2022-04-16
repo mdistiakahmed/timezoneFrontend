@@ -4,9 +4,13 @@ import { useContext } from 'react';
 import { UserDataContext } from '../../../../../context/UserDataContext';
 import { ApplicationContext } from '../../../../../context/AppContext';
 import { AppReducerActionKind } from '../../../../../hooks/useAppReducer';
-import { UserUpdateModalInput } from '../../../../../constants/DataModel';
 import { USER_UPDATE_VALIDATION_SCHEMA } from './UserUpdateValidationSchema';
 import { UserUpdateModalProps } from '.';
+
+export type UserUpdateModalInput = {
+    email: string;
+    role: string;
+};
 
 const useUserUpdateModalData = ({
     isOpen,
@@ -27,7 +31,7 @@ const useUserUpdateModalData = ({
                 payload: { msg: 'Nothing to update', type: 'warning' },
             });
         } else {
-            await updateData(data.username, data.role?.toLocaleLowerCase());
+            await updateData(data.email, data.role?.toLocaleLowerCase());
             onCancel();
         }
     };

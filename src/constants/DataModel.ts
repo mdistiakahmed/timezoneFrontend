@@ -1,36 +1,22 @@
-import { UserRoles } from './GeneralConstants';
-
-export type UserDTO = {
-    username: string;
+export type UserCreateModel = {
+    email: string;
     password: string;
-    sysadmin?: boolean;
+    sysadmin: boolean;
 };
 
-export type UserSignUpModel = {
-    username: string;
+export type UserSignInModel = {
+    email: string;
     password: string;
 };
 
-export interface UserInterface {
-    userData: UserDTO[];
+export type UserUpdateModel = {
+    email: string;
+    sysadmin: boolean;
+};
+
+export interface UserTableData {
+    userData: UserUpdateModel[];
     pageNumber: number;
     pageSize: number;
     totalElements: number;
-}
-
-export type UserData = {
-    email: string;
-    password?: string;
-    role: UserRoles;
-};
-
-export interface SinginFormInput {
-    email: string;
-    password: string;
-    role: string;
-}
-
-export interface UserUpdateModalInput {
-    username: string;
-    role: string;
 }

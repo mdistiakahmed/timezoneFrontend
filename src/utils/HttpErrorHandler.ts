@@ -5,7 +5,7 @@ const HttpErrorHandler = (error: any, dispatch: any) => {
     if (error.response) {
         // The client was given an error response (5xx, 4xx)
         if (error.response.status === 400) {
-            errorMessage =  error.response.data?.msg || 'Invalid Data';
+            errorMessage = error.response.data?.msg || 'Invalid Data';
         } else if (error.response.status === 401) {
             errorMessage = error.response.data?.msg || 'Unauthorized Request';
         } else if (error.response.status === 403) {
@@ -22,8 +22,7 @@ const HttpErrorHandler = (error: any, dispatch: any) => {
         errorMessage = 'Server is not responding, try again';
     } else {
         // Anything else
-        errorMessage =
-            'Something went wrong. Try agian. Details: ';
+        errorMessage = 'Something went wrong. Try agian. Details: ';
     }
     dispatch({
         type: AppReducerActionKind.SET_ALERT,
