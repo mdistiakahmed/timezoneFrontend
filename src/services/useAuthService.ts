@@ -4,9 +4,10 @@ import { AppReducerActionKind } from '../hooks/useAppReducer';
 import { UserDTO, UserSignUpModel } from '../constants/DataModel';
 import { useContext } from 'react';
 import { ApplicationContext } from '../context/AppContext';
+import HttpErrorHandler from '../utils/HttpErrorHandler';
 
-const useAuthService = (dispatch: any) => {
-    const { apiHandler } = useContext(ApplicationContext);
+const useAuthService = () => {
+    const { apiHandler, dispatch } = useContext(ApplicationContext);
     const navigate = useNavigate();
 
     const signUp = async (data: UserSignUpModel): Promise<any> => {
@@ -18,6 +19,10 @@ const useAuthService = (dispatch: any) => {
                     payload: res?.token ?? '',
                 });
                 navigate('/');
+            })
+            .catch((error: any) => {
+                HttpErrorHandler(error, dispatch);
+                return Promise.reject(error);
             });
     };
     const signIn = async (data: UserDTO): Promise<any> => {
@@ -29,6 +34,10 @@ const useAuthService = (dispatch: any) => {
                     payload: res?.token ?? '',
                 });
                 navigate('/');
+            })
+            .catch((error: any) => {
+                HttpErrorHandler(error, dispatch);
+                return Promise.reject(error);
             });
     };
 

@@ -4,14 +4,14 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import useSigninLogic from './useSigninLogic';
+import useSignInData from './useSignInData';
 import LoadingButton from '@mui/lab/LoadingButton';
 import LoginIcon from '@mui/icons-material/Login';
 import { FormInputText } from '../../forms/FormInputText';
 
 const Signin = () => {
     const { handleSubmit, control, handleSignInFormSubmit, busy } =
-        useSigninLogic();
+        useSignInData();
 
     return (
         <Container component="main" maxWidth="xs">

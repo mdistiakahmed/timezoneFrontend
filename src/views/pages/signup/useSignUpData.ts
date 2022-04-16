@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
-import useAuthService from '../../../services/AuthService';
-import { ApplicationContext } from '../../../context/AppContext';
+import { useEffect, useState } from 'react';
+import useAuthService from '../../../services/useAuthService';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { AnyObjectSchema } from 'yup';
@@ -27,13 +26,12 @@ const VALIDATION_SCHEMA: AnyObjectSchema = yup.object({
         .oneOf([yup.ref('password'), null], 'Password does not match'),
 });
 
-const useSignupLogic = () => {
+const useSignUpData = () => {
     const { handleSubmit, control } = useForm<IFormInput>({
         defaultValues: defaultValues,
         resolver: yupResolver(VALIDATION_SCHEMA),
     });
-    const { dispatch } = useContext(ApplicationContext);
-    const { signUp } = useAuthService(dispatch);
+    const { signUp } = useAuthService();
     // show busy button
     const [busy, setBusy] = useState(false);
 
@@ -61,4 +59,4 @@ const useSignupLogic = () => {
     };
 };
 
-export default useSignupLogic;
+export default useSignUpData;

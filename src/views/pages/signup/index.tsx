@@ -7,11 +7,11 @@ import Grid from '@mui/material/Grid';
 import LoginIcon from '@mui/icons-material/Login';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Link } from '@mui/material';
-import useSignupLogic from './useSignupLogic';
+import useSignUpData from './useSignUpData';
 
 const Signup = () => {
     const { handleSubmit, control, handleSignUpFormSubmit, busy } =
-        useSignupLogic();
+        useSignUpData();
 
     return (
         <Container component="main" maxWidth="xs">

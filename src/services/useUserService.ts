@@ -2,11 +2,12 @@ import { useContext } from 'react';
 import { ApiEndpoints } from '../constants/ApiEndpoints';
 import { ApplicationContext } from '../context/AppContext';
 import { UserDTO } from '../constants/DataModel';
-import { AppReducerActionKind } from '../hooks/useAppReducer';
 import HttpErrorHandler from '../utils/HttpErrorHandler';
+import useUtilService from './useUtilService';
 
 const useUserService = () => {
     const { apiHandler, dispatch } = useContext(ApplicationContext);
+    const { setLoader, setMessage } = useUtilService();
 
     const getAllUsers = async (
         pageNo: number,
@@ -74,20 +75,6 @@ const useUserService = () => {
             .finally(() => {
                 setLoader(false);
             });
-    };
-
-    const setLoader = (value: boolean) => {
-        dispatch({
-            type: AppReducerActionKind.SET_LOADER,
-            payload: value,
-        });
-    };
-
-    const setMessage = (value: string) => {
-        dispatch({
-            type: AppReducerActionKind.SET_ALERT,
-            payload: { msg: value, type: 'success' },
-        });
     };
 
     return { getAllUsers, deleteUser, updateUser, createUser };

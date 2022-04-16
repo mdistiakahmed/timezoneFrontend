@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
-import useAuthService from '../../../services/AuthService';
-import { ApplicationContext } from '../../../context/AppContext';
+import { useEffect, useState } from 'react';
+import useAuthService from '../../../services/useAuthService';
 import * as yup from 'yup';
 import { AnyObjectSchema } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -21,16 +20,14 @@ const VALIDATION_SCHEMA: AnyObjectSchema = yup.object({
     password: yup.string().required('Please enter password'),
 });
 
-const useSigninLogic = () => {
+const useSignInData = () => {
     const { handleSubmit, control } = useForm<SinginFormInput>({
         defaultValues: defaultValues,
         resolver: yupResolver(VALIDATION_SCHEMA),
     });
 
     const [busy, setBusy] = useState<boolean>(false);
-
-    const { dispatch } = useContext(ApplicationContext);
-    const { signIn } = useAuthService(dispatch);
+    const { signIn } = useAuthService();
 
     useEffect(() => {
         // clear memory during exist form this page (component unmount)
@@ -56,4 +53,4 @@ const useSigninLogic = () => {
     };
 };
 
-export default useSigninLogic;
+export default useSignInData;

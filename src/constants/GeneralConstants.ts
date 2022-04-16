@@ -10,6 +10,10 @@ export enum AlertSeverity {
     SUCCESS = 'success',
 }
 
+export enum AuthConstants {
+    AUTH_TOKEN = 'AUTH_TOKEN',
+}
+
 export class PageLimit {
     static USER_PAGE_LIMIT = 10;
     static HOME_PAGE_LIMIT = 10;

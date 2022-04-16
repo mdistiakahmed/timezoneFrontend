@@ -1,5 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import { URLsWithoutAuthorization } from '../constants/ApiEndpoints';
+import { AuthConstants } from '../constants/GeneralConstants';
 
 const NeedToken = (requstedUrl: string | undefined): boolean => {
     if (!requstedUrl) {
@@ -21,7 +22,7 @@ const HttpHeaders = (config: AxiosRequestConfig): AxiosRequestConfig => {
     }
     if (NeedToken(config.url)) {
         config.headers['Authorization'] = `Bearer ${localStorage.getItem(
-            'AUTH_TOKEN',
+            AuthConstants.AUTH_TOKEN,
         )}`;
     }
     config.headers['Access-Control-Allow-Origin'] = '*';

@@ -1,5 +1,6 @@
 import { AlertColor } from '@mui/material';
 import { useReducer } from 'react';
+import { AuthConstants } from '../constants/GeneralConstants';
 
 // An enum with all the types of actions to use in our reducer
 export enum AppReducerActionKind {
@@ -39,16 +40,16 @@ const appReducerFunction = (state: AppState, action: AppReducerAction) => {
         case AppReducerActionKind.SET_ALERT:
             return {
                 ...state,
-                alert: payload ?? { msg: 'Unknown Error' },
+                alert: payload ?? { msg: '' },
             };
         case AppReducerActionKind.SET_TOKEN:
-            localStorage.setItem('AUTH_TOKEN', payload ?? '');
+            localStorage.setItem(AuthConstants.AUTH_TOKEN, payload ?? '');
             return {
                 ...state,
                 token: { value: payload ?? '' },
             };
         case AppReducerActionKind.REMOVE_TOKEN:
-            localStorage.removeItem('AUTH_TOKEN');
+            localStorage.removeItem(AuthConstants.AUTH_TOKEN);
             return {
                 ...state,
                 token: { value: '' },
