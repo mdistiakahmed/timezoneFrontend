@@ -5,10 +5,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useContext, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
-import ConfirmationModal from '../../../common-components/ConfirmationModal';
 import { UserDataContext } from '../../../../context/UserDataContext';
-import UserUpdateDialog from '../Modals/UserUpdateModal';
+import UserUpdateModal from '../Modals/UserUpdateModal';
 import { UserData } from '../../../../constants/DataModel';
+import UserDeleteModal from '../Modals/UserDeleteModal';
 
 const UserTableRow = ({ email, role }: UserData): JSX.Element => {
     const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
@@ -57,25 +57,18 @@ const UserTableRow = ({ email, role }: UserData): JSX.Element => {
                 </Grid>
             </TableCell>
 
-            <UserUpdateDialog
+            <UserUpdateModal
                 isOpen={editDialogOpen}
                 onCancel={() => setEditDialogOpen(false)}
                 defaultValues={{ username: email, role: role }}
             />
 
-            <ConfirmationModal
-                open={deleteConfirmationOpen}
-                title="User Delete confirmation"
-                description="Sure want to delete this user? This will delete the user and all the timezones enterd by this user"
+            <UserDeleteModal
+                isOpen={deleteConfirmationOpen}
                 onCancel={() => setDeleteConfirmationOpen(false)}
                 onConfirm={onDeleteConfirm}
-                alertSeverity="error"
-                children={
-                    <div>
-                        <h3>Email: {email}</h3>
-                        <h3>Role: {role}</h3>
-                    </div>
-                }
+                email={email}
+                role={role}
             />
         </TableRow>
     );

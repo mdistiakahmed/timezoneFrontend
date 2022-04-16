@@ -4,21 +4,17 @@ import { FormInputText } from '../../../../forms/FormInputText';
 import Box from '@mui/material/Box';
 import FormInputDropdown from '../../../../forms/FormInputDropdown';
 import { UserRoleArray } from '../../../../../constants/GeneralConstants';
-import useUserUpdateDialogLogic from './useUserCreateModalData';
+import useUserCreateModalData from './useUserCreateModalData';
 import Modal from '../../../../common-components/Modal';
-import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
 
-const UserCreateDialog = ({ isOpen, onCancel }: UserCreateModalProps) => {
+const UserCreateModal = ({ isOpen, onCancel }: UserCreateModalProps) => {
     const { handleSubmit, control, onDialogClose, onSubmitDialog } =
-        useUserUpdateDialogLogic({
+        useUserCreateModalData({
             isOpen,
             onCancel,
         });
-    const title = (
-        <Typography variant="h6" noWrap>
-            Add User
-        </Typography>
-    );
+    const title = <Alert severity={'info'}>Add New User</Alert>;
 
     const body = () => {
         return (
@@ -84,7 +80,7 @@ const UserCreateDialog = ({ isOpen, onCancel }: UserCreateModalProps) => {
     );
 };
 
-export default UserCreateDialog;
+export default UserCreateModal;
 
 export type UserCreateModalProps = {
     isOpen: boolean;

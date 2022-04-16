@@ -15,7 +15,6 @@ import { styled } from '@mui/material/styles';
 import Collapse from '@mui/material/Collapse';
 import TablePagination from '@mui/material/TablePagination';
 import AddTimezoneDialog from './AddTimezoneDialog';
-import ConfirmationModal from '../../common-components/ConfirmationModal';
 
 const fruits: string[] = [
     'Apple',
@@ -103,20 +102,6 @@ const TimezoneCard = () => {
                 open={editDialogOpen}
                 onCancel={() => setEditDialogOpen(false)}
                 onAdd={() => {}}
-            />
-            <ConfirmationModal
-                title="Attention"
-                description="Want to delete this item?"
-                open={deleteConfirmationOpen}
-                onCancel={() => setDeleteConfirmationOpen(false)}
-                onConfirm={() => {}}
-                children={
-                    <div>
-                        <h3>name: Home</h3>
-                        <h3>city: Comilla</h3>
-                    </div>
-                }
-                alertSeverity={'error'}
             />
         </Card>
     );

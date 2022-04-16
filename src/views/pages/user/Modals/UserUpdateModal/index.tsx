@@ -4,27 +4,23 @@ import { FormInputText } from '../../../../forms/FormInputText';
 import Box from '@mui/material/Box';
 import FormInputDropdown from '../../../../forms/FormInputDropdown';
 import { UserRoleArray } from '../../../../../constants/GeneralConstants';
-import useUserUpdateDialogLogic from './useUserUpdateModalData';
+import useUserUpdateModalData from './useUserUpdateModalData';
 import { UserUpdateModalInput } from '../../../../../constants/DataModel';
 import Modal from '../../../../common-components/Modal';
-import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
 
-const UserUpdateDialog = ({
+const UserUpdateModal = ({
     isOpen,
     onCancel,
     defaultValues,
 }: UserUpdateModalProps) => {
     const { handleSubmit, control, onDialogClose, onSubmitDialog } =
-        useUserUpdateDialogLogic({
+        useUserUpdateModalData({
             isOpen,
             onCancel,
             defaultValues,
         });
-    const title = (
-        <Typography variant="h6" noWrap>
-            Edit User Information
-        </Typography>
-    );
+    const title = <Alert severity={'info'}>Update User Information</Alert>;
 
     const body = () => {
         return (
@@ -80,7 +76,7 @@ const UserUpdateDialog = ({
     );
 };
 
-export default UserUpdateDialog;
+export default UserUpdateModal;
 
 export type UserUpdateModalProps = {
     isOpen: boolean;
