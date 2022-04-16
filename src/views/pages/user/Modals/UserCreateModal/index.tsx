@@ -6,6 +6,7 @@ import FormInputDropdown from '../../../../forms/FormInputDropdown';
 import { UserRoleArray } from '../../../../../constants/GeneralConstants';
 import useUserUpdateDialogLogic from './useUserCreateModalData';
 import Modal from '../../../../common-components/Modal';
+import Typography from '@mui/material/Typography';
 
 const UserCreateDialog = ({ isOpen, onCancel }: UserCreateModalProps) => {
     const { handleSubmit, control, onDialogClose, onSubmitDialog } =
@@ -13,7 +14,11 @@ const UserCreateDialog = ({ isOpen, onCancel }: UserCreateModalProps) => {
             isOpen,
             onCancel,
         });
-    const title = 'Add User';
+    const title = (
+        <Typography variant="h6" noWrap>
+            Add User
+        </Typography>
+    );
 
     const body = () => {
         return (

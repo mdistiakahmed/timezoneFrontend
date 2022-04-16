@@ -16,7 +16,7 @@ const Modal = ({ title, isOpen, onClose, body, modalActions }: ModalProps) => {
 export default Modal;
 
 export type ModalProps = {
-    title: string;
+    title: JSX.Element;
     isOpen: boolean;
     onClose: any;
     body?: JSX.Element;

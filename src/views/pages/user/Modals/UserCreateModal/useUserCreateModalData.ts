@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { UserDataContext } from '../../../../../context/UserDataContext';
 import { UserRoles } from '../../../../../constants/GeneralConstants';
 import { SinginFormInput } from '../../../../../constants/DataModel';
-import { YUP_USER_CREATE_VALIDATION_SCHEMA } from './yupUserCreateValidationSchema';
+import { USER_CREATE_VALIDATION_SCHEMA } from './UserCreateValidationSchema';
 import { UserCreateModalProps } from '.';
 
 const defaultValues = {
@@ -16,7 +16,7 @@ const defaultValues = {
 const useUserCreateModalData = ({ isOpen, onCancel }: UserCreateModalProps) => {
     const { handleSubmit, control, reset } = useForm<SinginFormInput>({
         defaultValues: defaultValues,
-        resolver: yupResolver(YUP_USER_CREATE_VALIDATION_SCHEMA),
+        resolver: yupResolver(USER_CREATE_VALIDATION_SCHEMA),
     });
     const { createData } = useContext(UserDataContext);
 

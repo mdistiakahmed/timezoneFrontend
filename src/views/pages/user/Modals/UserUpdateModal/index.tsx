@@ -7,6 +7,7 @@ import { UserRoleArray } from '../../../../../constants/GeneralConstants';
 import useUserUpdateDialogLogic from './useUserUpdateModalData';
 import { UserUpdateModalInput } from '../../../../../constants/DataModel';
 import Modal from '../../../../common-components/Modal';
+import Typography from '@mui/material/Typography';
 
 const UserUpdateDialog = ({
     isOpen,
@@ -19,7 +20,11 @@ const UserUpdateDialog = ({
             onCancel,
             defaultValues,
         });
-    const title = 'Edit User Information';
+    const title = (
+        <Typography variant="h6" noWrap>
+            Edit User Information
+        </Typography>
+    );
 
     const body = () => {
         return (

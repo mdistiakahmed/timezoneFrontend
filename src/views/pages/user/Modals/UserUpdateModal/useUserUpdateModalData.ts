@@ -5,7 +5,7 @@ import { UserDataContext } from '../../../../../context/UserDataContext';
 import { ApplicationContext } from '../../../../../context/AppContext';
 import { AppReducerActionKind } from '../../../../../hooks/useAppReducer';
 import { UserUpdateModalInput } from '../../../../../constants/DataModel';
-import { YUP_USER_UPDATE_VALIDATION_SCHEMA } from './yupUserUpdateModalSchema';
+import { USER_UPDATE_VALIDATION_SCHEMA } from './UserUpdateValidationSchema';
 import { UserUpdateModalProps } from '.';
 
 const useUserUpdateModalData = ({
@@ -15,7 +15,7 @@ const useUserUpdateModalData = ({
 }: UserUpdateModalProps) => {
     const { handleSubmit, control, reset } = useForm<UserUpdateModalInput>({
         defaultValues: defaultValues,
-        resolver: yupResolver(YUP_USER_UPDATE_VALIDATION_SCHEMA),
+        resolver: yupResolver(USER_UPDATE_VALIDATION_SCHEMA),
     });
     const { updateData } = useContext(UserDataContext);
     const { dispatch } = useContext(ApplicationContext);
