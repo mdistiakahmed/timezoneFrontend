@@ -3,7 +3,7 @@ import { UserDTO, UserInterface } from '../../../constants/DataModel';
 import useUserService from '../../../services/useUserService';
 //import { PageLimit } from '../../../constants/GeneralConstants';
 
-const useUserLogic = () => {
+const useUserData = () => {
     const [userTableData, setUserTableData] = useState<UserInterface>({
         userData: [],
         pageNumber: 0,
@@ -84,4 +84,4 @@ const useUserLogic = () => {
     };
 };
 
-export default useUserLogic;
+export default useUserData;

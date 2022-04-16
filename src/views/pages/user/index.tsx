@@ -1,12 +1,12 @@
 import Topbar from '../../common-components/Topbar';
 import UserTable from './Table/UserTable';
-import useUserLogic from './useUserLogic';
+import useUserData from './useUserData';
 import { UserDataContext } from '../../../context/UserDataContext';
 import AddButton from '../../common-components/AddButton';
 import UserCreateModal from './Modals/UserCreateModal';
 
 const User = () => {
-    const userLogic = useUserLogic();
+    const userLogic = useUserData();
 
     return (
         <UserDataContext.Provider value={userLogic}>
