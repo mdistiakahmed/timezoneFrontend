@@ -12,6 +12,8 @@ export enum AlertSeverity {
 
 export enum AuthConstants {
     AUTH_TOKEN = 'AUTH_TOKEN',
+    ROLE_ADMIN = 'ROLE_ADMIN',
+    ROLE_USER = 'ROLE_USER',
 }
 
 export class PageLimit {

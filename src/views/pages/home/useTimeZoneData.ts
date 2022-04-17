@@ -8,6 +8,8 @@ import useTimeZoneService from '../../../services/useTimeZoneService';
 const useTimeZoneData = () => {
     const timeZoneService = useTimeZoneService();
     const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
+    const [allUserDataChecked, setAllUserDataChecked] =
+        useState<boolean>(false);
     const [timeZoneTableData, setTimeZoneTableData] =
         useState<TimeZoneTableDataModel>({
             timeZoneDataModelList: [],
@@ -25,7 +27,7 @@ const useTimeZoneData = () => {
 
     const loadTimeZoneData = async (): Promise<any> => {
         timeZoneService
-            .getTimeZone(timeZoneTableData.pageNumber, 4) //PageLimit.USER_PAGE_LIMIT
+            .getTimeZone(timeZoneTableData.pageNumber, 4, allUserDataChecked) //PageLimit.USER_PAGE_LIMIT
             .then((res) => {
                 setTimeZoneTableData({
                     ...timeZoneTableData,
@@ -65,7 +67,12 @@ const useTimeZoneData = () => {
     useEffect(() => {
         loadTimeZoneData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [timeZoneTableData.pageNumber]);
+    }, [timeZoneTableData.pageNumber, allUserDataChecked]);
+
+    useEffect(() => {
+        setPageNumber(0);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [allUserDataChecked]);
 
     return {
         timeZoneTableData,
@@ -76,6 +83,8 @@ const useTimeZoneData = () => {
         setPageNumber,
         addModalOpen,
         setAddModalOpen,
+        allUserDataChecked,
+        setAllUserDataChecked,
     };
 };
 

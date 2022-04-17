@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import Home from './pages/home';
-import ServerDownPage from './pages/misc/ServerDownPage';
+import NotFound from './pages/NotFoundPage404/NotFound';
 import Signin from './pages/signin';
 import Signup from './pages/signup';
 import User from './pages/user';
@@ -16,8 +16,20 @@ function AuthGuard({
     return isAuthenticated ? component : <Navigate to="/signin" />;
 }
 
+function AdminGuard({
+    isAuthenticated,
+    isAdmin,
+    component,
+}: {
+    isAuthenticated: boolean;
+    isAdmin: boolean;
+    component: JSX.Element;
+}) {
+    return isAuthenticated && isAdmin ? component : <Navigate to="/" />;
+}
+
 export default function RoutesHandler() {
-    const isAuthenticated = useAuth();
+    const { isAuthenticated, isAdmin } = useAuth();
     return (
         <Routes>
             <Route
@@ -32,15 +44,16 @@ export default function RoutesHandler() {
             <Route
                 path="users"
                 element={
-                    <AuthGuard
+                    <AdminGuard
                         component={<User />}
                         isAuthenticated={isAuthenticated}
+                        isAdmin={isAdmin}
                     />
                 }
             />
             <Route path="signin" element={<Signin />} />
             <Route path="signup" element={<Signup />} />
-            <Route path="server-down" element={<ServerDownPage />} />
+            <Route path="*" element={<NotFound />} />
         </Routes>
     );
 }

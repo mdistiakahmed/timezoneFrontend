@@ -14,13 +14,19 @@ import Avatar from '@mui/material/Avatar';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ApplicationContext } from '../../context/AppContext';
 import { AppReducerActionKind } from '../../hooks/useAppReducer';
+import { useAuth } from '../../hooks/useAuth';
 
-const MenuOptions = [
-    { name: 'Home', value: '/' },
-    { name: 'Users', value: '/users' },
-];
+const UserMenuOptions = [{ name: 'Home', value: '/' }];
+
+const AdminMenuOptions = [{ name: 'Users', value: '/users' }];
 
 const Topbar = () => {
+    const { isAdmin } = useAuth();
+    let MenuOptions: { name: string; value: string }[] = UserMenuOptions;
+    if (isAdmin) {
+        MenuOptions = UserMenuOptions.concat(AdminMenuOptions);
+    }
+
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     // for navigate to signin page upon logout

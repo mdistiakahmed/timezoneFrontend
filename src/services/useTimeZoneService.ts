@@ -12,10 +12,14 @@ const useTimeZoneService = () => {
     const getTimeZone = async (
         pageNo: number,
         pageSize: number,
+        allUserDataChecked: boolean,
     ): Promise<any> => {
         setLoader(true);
+        const url = allUserDataChecked
+            ? ApiEndpoints.timeZone.getAllUsersTimeZone
+            : ApiEndpoints.timeZone.getUserTimeZone;
         return apiHandler
-            ._get(ApiEndpoints.timeZone.getUserTimeZone, {
+            ._get(url, {
                 params: { pageNo: pageNo, pageSize: pageSize },
             })
             .catch((error: any) => {
