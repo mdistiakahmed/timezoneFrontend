@@ -25,7 +25,7 @@ const useTimeZoneData = () => {
 
     const loadTimeZoneData = async (): Promise<any> => {
         timeZoneService
-            .getTimeZone(timeZoneTableData.pageNumber, 2) //PageLimit.USER_PAGE_LIMIT
+            .getTimeZone(timeZoneTableData.pageNumber, 4) //PageLimit.USER_PAGE_LIMIT
             .then((res) => {
                 setTimeZoneTableData({
                     ...timeZoneTableData,

@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import TablePagination from '@mui/material/TablePagination';
 import { useContext } from 'react';
 import { TimeZoneDataContext } from '../../../../context/TimeZoneDataContext';
-import TableEntry from './TimeZoneTableEntry';
+import TableEntry from './TimeZoneTableEntry/TimeZoneTableEntry';
 
 const TimeZoneTable = () => {
     const { timeZoneTableData, setPageNumber } =
@@ -27,7 +27,7 @@ const TimeZoneTable = () => {
             >
                 {timeZoneDataModelList.map((e) => {
                     return (
-                        <Grid item maxWidth={350} minWidth={350} key={e.name}>
+                        <Grid item minWidth={350} key={e.name}>
                             <TableEntry
                                 name={e.name}
                                 city={e.city}
