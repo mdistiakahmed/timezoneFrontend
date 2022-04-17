@@ -60,7 +60,24 @@ const useTimeZoneService = () => {
             });
     };
 
-    return { createTimeZone, getTimeZone, deleteTimeZone };
+    const updateTimeZone = async (data: TimeZoneDataModel): Promise<any> => {
+        setLoader(true);
+        return apiHandler
+            ._put(ApiEndpoints.timeZone.updateTimeZone, data)
+            .then((res: any) => {
+                setMessage('Updated');
+                return Promise.resolve(res);
+            })
+            .catch((error: any) => {
+                HttpErrorHandler(error, dispatch);
+                return Promise.reject(error);
+            })
+            .finally(() => {
+                setLoader(false);
+            });
+    };
+
+    return { createTimeZone, getTimeZone, deleteTimeZone, updateTimeZone };
 };
 
 export default useTimeZoneService;

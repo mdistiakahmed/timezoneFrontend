@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import { useState } from 'react';
 import TimeZoneDeleteModal from '../../TimeZoneModal/TimeZoneDeleteModal/TimeZoneDeleteModal';
+import TimeZoneUpdateModal from '../../TimeZoneModal/TimeZoneUpdateModal/TimeZoneUpdateModal';
 
 const PropertiesSection = ({
     hourDiff,
@@ -56,8 +57,10 @@ const TableEntry = ({
     minuteDiff,
 }: TimeZoneDataModel) => {
     const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+    const [updateModalOpen, setUpdateModalOpen] = useState<boolean>(false);
     const title = <span>{name}</span>;
     const subheader = <p>{city}</p>;
+
     const body = () => {
         return (
             <Container sx={{ display: 'flex', flexDirection: 'row' }}>
@@ -72,7 +75,12 @@ const TableEntry = ({
     const actions = () => {
         return (
             <div>
-                <IconButton aria-label="edit" onClick={() => {}}>
+                <IconButton
+                    aria-label="edit"
+                    onClick={() => {
+                        setUpdateModalOpen(true);
+                    }}
+                >
                     <EditIcon />
                 </IconButton>
                 <IconButton
@@ -98,6 +106,16 @@ const TableEntry = ({
                 isOpen={deleteModalOpen}
                 onCancel={() => setDeleteModalOpen(false)}
                 name={name}
+            />
+            <TimeZoneUpdateModal
+                isOpen={updateModalOpen}
+                onCancel={() => setUpdateModalOpen(false)}
+                defaultValues={{
+                    name: name,
+                    city: city,
+                    hourDiff: hourDiff,
+                    minuteDiff: minuteDiff,
+                }}
             />
         </div>
     );

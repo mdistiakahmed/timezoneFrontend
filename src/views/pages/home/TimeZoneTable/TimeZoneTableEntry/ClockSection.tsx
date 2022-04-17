@@ -8,18 +8,19 @@ const ClockSection = ({ hourDiff, minuteDiff }: ClockSectionProps) => {
     const [digiTime, setDigiTime] = useState('');
     const [diff, setDiff] = useState('');
 
-    let offset = Math.abs(hourDiff) * 3600 * 1000 + minuteDiff * 60 * 1000;
-    if (hourDiff < 0) {
-        offset = offset * -1;
-    }
+    const setClock = (hourDiff: number, minuteDiff: number) => {
+        let offset = Math.abs(hourDiff) * 3600 * 1000 + minuteDiff * 60 * 1000;
+        if (hourDiff < 0) {
+            offset = offset * -1;
+        }
 
-    const setClock = () => {
         const currentDate: Date = new Date();
         const convertedDate: Date = new Date(
             currentDate.getTime() +
                 currentDate.getTimezoneOffset() * 60 * 1000 +
                 offset,
         );
+
         let secondRatio1 = convertedDate.getSeconds() / 60;
         let minuteRatio1 = (secondRatio1 + convertedDate.getMinutes()) / 60;
         let hourRatio1 = (minuteRatio1 + convertedDate.getHours()) / 12;
@@ -53,10 +54,10 @@ const ClockSection = ({ hourDiff, minuteDiff }: ClockSectionProps) => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setClock();
+            setClock(hourDiff, minuteDiff);
         }, 1000);
         return () => clearInterval(interval);
-    }, []);
+    }, [hourDiff, minuteDiff]);
 
     return (
         <Clock
