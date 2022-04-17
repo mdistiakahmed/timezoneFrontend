@@ -12,10 +12,11 @@ export class ApiEndpoints {
     };
 
     static timeZone = {
-        getUsers: '/v1/users',
+        getUserTimeZone: '/v1/timezones',
         createTimeZone: '/v1/timezone',
-        deleteUser: (username: string) => `/v1/users/${username}`,
-        updateUser: '/v1/user',
+        deleteTimeZone: (name: string) => `/v1/timezones/${name}`,
+        updateTimeZone: '/v1/timezone',
+        getAllUsersTimeZone: '/v1/timezones/all',
     };
 }
 

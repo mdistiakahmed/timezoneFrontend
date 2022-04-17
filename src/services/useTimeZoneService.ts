@@ -9,10 +9,25 @@ const useTimeZoneService = () => {
     const { apiHandler, dispatch } = useContext(ApplicationContext);
     const { setLoader, setMessage } = useUtilService();
 
+    const getTimeZone = async (
+        pageNo: number,
+        pageSize: number,
+    ): Promise<any> => {
+        setLoader(true);
+        return apiHandler
+            ._get(ApiEndpoints.timeZone.getUserTimeZone, {
+                params: { pageNo: pageNo, pageSize: pageSize },
+            })
+            .catch((error: any) => {
+                HttpErrorHandler(error, dispatch);
+                return Promise.reject(error);
+            })
+            .finally(() => {
+                setLoader(false);
+            });
+    };
+
     const createTimeZone = async (data: TimeZoneDataModel): Promise<any> => {
-        console.log('IN service class....');
-        console.log(data);
-        console.log('End service class...');
         setLoader(true);
         return apiHandler
             ._post(ApiEndpoints.timeZone.createTimeZone, data)
@@ -28,7 +43,7 @@ const useTimeZoneService = () => {
             });
     };
 
-    return { createTimeZone };
+    return { createTimeZone, getTimeZone };
 };
 
 export default useTimeZoneService;

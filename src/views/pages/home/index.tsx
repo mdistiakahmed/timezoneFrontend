@@ -1,9 +1,9 @@
 import AddButton from '../../common-components/AddButton';
-import AllTimezones from './AllTimezones';
 import Topbar from '../../common-components/Topbar';
 import TimeZoneCreateModal from './TimeZoneModal/TimeZoneCreateModal';
 import useTimeZoneData from './useTimeZoneData';
 import { TimeZoneDataContext } from '../../../context/TimeZoneDataContext';
+import TimeZoneTable from './TimeZoneTable/TimeZoneTable';
 
 const Home = () => {
     const timeZoneDataLogic = useTimeZoneData();
@@ -11,7 +11,7 @@ const Home = () => {
         <TimeZoneDataContext.Provider value={timeZoneDataLogic}>
             <div>
                 <Topbar />
-                <AllTimezones />
+                <TimeZoneTable />
                 <AddButton
                     onClick={() => timeZoneDataLogic.setAddModalOpen(true)}
                     title="Add New Timezone"

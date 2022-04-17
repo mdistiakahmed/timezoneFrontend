@@ -27,3 +27,10 @@ export type TimeZoneDataModel = {
     hourDiff: number;
     minuteDiff: number;
 };
+
+export interface TimeZoneTableDataModel {
+    timeZoneDataModelList: TimeZoneDataModel[];
+    pageNumber: number;
+    pageSize: number;
+    totalElements: number;
+}
