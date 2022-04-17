@@ -74,7 +74,7 @@ const Clock = ({
                 </div>
             </div>
             <p>{digitalTime}</p>
-            <span> Browser Time Diff {browserTimeDifference}</span>
+            <span> Time Diff {browserTimeDifference}</span>
         </div>
     );
 };

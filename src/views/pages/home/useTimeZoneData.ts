@@ -50,8 +50,13 @@ const useTimeZoneData = () => {
             });
     };
 
+    const deleteTimeZone = async (name: string): Promise<any> => {
+        return timeZoneService.deleteTimeZone(name).then(async (result) => {
+            return loadTimeZoneData();
+        });
+    };
+
     useEffect(() => {
-        console.log('In Load timezone data use effect');
         loadTimeZoneData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [timeZoneTableData.pageNumber]);
@@ -60,6 +65,7 @@ const useTimeZoneData = () => {
         timeZoneTableData,
         loadTimeZoneData,
         createTimeZone,
+        deleteTimeZone,
         setPageNumber,
         addModalOpen,
         setAddModalOpen,

@@ -7,6 +7,8 @@ import ClockSection from './ClockSection';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
+import { useState } from 'react';
+import TimeZoneDeleteModal from '../../TimeZoneModal/TimeZoneDeleteModal/TimeZoneDeleteModal';
 
 const PropertiesSection = ({
     hourDiff,
@@ -53,6 +55,7 @@ const TableEntry = ({
     hourDiff,
     minuteDiff,
 }: TimeZoneDataModel) => {
+    const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
     const title = <span>{name}</span>;
     const subheader = <p>{city}</p>;
     const body = () => {
@@ -72,19 +75,31 @@ const TableEntry = ({
                 <IconButton aria-label="edit" onClick={() => {}}>
                     <EditIcon />
                 </IconButton>
-                <IconButton aria-label="delete" onClick={() => {}}>
+                <IconButton
+                    aria-label="delete"
+                    onClick={() => {
+                        setDeleteModalOpen(true);
+                    }}
+                >
                     <DeleteForeverIcon sx={{ fill: 'red' }} />
                 </IconButton>
             </div>
         );
     };
     return (
-        <CustomCard
-            title={title}
-            subheader={subheader}
-            body={body()}
-            cardActions={actions()}
-        />
+        <div>
+            <CustomCard
+                title={title}
+                subheader={subheader}
+                body={body()}
+                cardActions={actions()}
+            />
+            <TimeZoneDeleteModal
+                isOpen={deleteModalOpen}
+                onCancel={() => setDeleteModalOpen(false)}
+                name={name}
+            />
+        </div>
     );
 };
 

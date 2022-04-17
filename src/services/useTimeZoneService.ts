@@ -43,7 +43,24 @@ const useTimeZoneService = () => {
             });
     };
 
-    return { createTimeZone, getTimeZone };
+    const deleteTimeZone = async (name: string): Promise<any> => {
+        setLoader(true);
+        return apiHandler
+            ._delete(ApiEndpoints.timeZone.deleteTimeZone(name))
+            .then((res: any) => {
+                setMessage('Deleted');
+                return Promise.resolve(res);
+            })
+            .catch((error: any) => {
+                HttpErrorHandler(error, dispatch);
+                return Promise.reject(error);
+            })
+            .finally(() => {
+                setLoader(false);
+            });
+    };
+
+    return { createTimeZone, getTimeZone, deleteTimeZone };
 };
 
 export default useTimeZoneService;

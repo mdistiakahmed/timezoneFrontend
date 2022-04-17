@@ -17,6 +17,9 @@ export const TimeZoneDataContext = createContext<TimeZoneDataContextType>({
     createTimeZone: () => {
         return Promise.resolve();
     },
+    deleteTimeZone: () => {
+        return Promise.resolve();
+    },
     setPageNumber: () => {},
     addModalOpen: false,
     setAddModalOpen: () => {},
@@ -26,6 +29,7 @@ export type TimeZoneDataContextType = {
     timeZoneTableData: TimeZoneTableDataModel;
     loadTimeZoneData: () => Promise<any>;
     createTimeZone: (data: TimeZoneDataModel) => Promise<void>;
+    deleteTimeZone: (name: string) => Promise<any>;
     setPageNumber: (pageNo: number) => void;
     addModalOpen: boolean;
     setAddModalOpen: any;
