@@ -20,3 +20,10 @@ export interface UserTableData {
     pageSize: number;
     totalElements: number;
 }
+
+export type TimeZoneDataModel = {
+    name: string;
+    city: string;
+    hourDiff: number;
+    minuteDiff: number;
+};

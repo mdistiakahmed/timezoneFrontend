@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import Home from './pages/home/Home';
+import Home from './pages/home';
 import ServerDownPage from './pages/misc/ServerDownPage';
 import Signin from './pages/signin';
 import Signup from './pages/signup';

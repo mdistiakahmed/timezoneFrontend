@@ -4,6 +4,7 @@ const HttpErrorHandler = (error: any, dispatch: any) => {
     let errorMessage = '';
     if (error.response) {
         // The client was given an error response (5xx, 4xx)
+        console.log(error.response);
         if (error.response.status === 400) {
             errorMessage = error.response.data?.msg || 'Invalid Data';
         } else if (error.response.status === 401) {

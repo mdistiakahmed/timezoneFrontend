@@ -14,7 +14,6 @@ import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Collapse from '@mui/material/Collapse';
 import TablePagination from '@mui/material/TablePagination';
-import AddTimezoneDialog from './AddTimezoneDialog';
 
 const fruits: string[] = [
     'Apple',
@@ -97,12 +96,6 @@ const TimezoneCard = () => {
                     </Typography>
                 </CardContent>
             </Collapse>
-            <AddTimezoneDialog
-                title="Edit Timezone"
-                open={editDialogOpen}
-                onCancel={() => setEditDialogOpen(false)}
-                onAdd={() => {}}
-            />
         </Card>
     );
 };
